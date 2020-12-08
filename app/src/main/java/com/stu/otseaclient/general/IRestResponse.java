@@ -8,5 +8,5 @@ import org.json.JSONObject;
  * @Description:
  */
 public interface IRestResponse {
-    void onRestResponse(Rest<String> rest);
+    void onRestResponse(Rest rest);
 }

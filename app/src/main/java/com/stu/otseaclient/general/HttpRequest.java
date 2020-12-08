@@ -41,13 +41,13 @@ public class HttpRequest {
             public void onResponse(Call call, Response response) throws IOException {
                 try {
                     JSONObject json = new JSONObject(response.body().string());
-                    RestCode code = RestCode.valueOfCode(json.getInt("code"));
+                    int code = json.getInt("code");
                     if (code != RestCode.SUCCEED)
                         Log.w(TagEnum.REQUEST_NET, "there is a unexpected and is body:" + json);
 
                     String msg = json.getString("msg");
                     String data=json.getString("data");
-                    restResponse.onRestResponse(new Rest<>(code, msg, data));
+                    restResponse.onRestResponse(new Rest(code, msg, data));
                 } catch (Exception e) {
                     e.printStackTrace();
                     Log.e(TagEnum.REQUEST_NET, "there is a exception on running callback " + url);

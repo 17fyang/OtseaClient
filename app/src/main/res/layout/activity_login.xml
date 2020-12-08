@@ -6,7 +6,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@drawable/bg"
-        tools:context=".activity.LoginActivity">
+        tools:context="com.stu.otseaclient.activity.LoginActivity">
 
     <TextView
             android:layout_width="176dp"
@@ -157,7 +157,8 @@
             android:textColor="@android:color/background_light"
             android:textSize="12sp"
             app:layout_constraintStart_toStartOf="@+id/layoutOfPwd"
-            app:layout_constraintTop_toBottomOf="@+id/layoutOfPwd"/>
+            app:layout_constraintTop_toBottomOf="@+id/layoutOfPwd"
+            android:onClick="remember"/>
 
     <CheckBox
             android:id="@+id/autoLogin"

@@ -2,6 +2,10 @@ package com.stu.otseaclient.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
+import android.os.Message;
+import android.util.Log;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -10,15 +14,32 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.stu.com.R;
 import com.stu.otseaclient.general.ApiEnum;
 import com.stu.otseaclient.general.HttpRequest;
+import com.stu.otseaclient.general.Rest;
 import com.stu.otseaclient.general.RestCode;
 import okhttp3.FormBody;
 import okhttp3.RequestBody;
+import org.json.JSONObject;
 
 public class LoginActivity extends AppCompatActivity {
     CheckBox rememberBox;
     CheckBox autoLoginBox;
     EditText accountEditText;
     EditText passwordEditText;
+
+    /**
+     * 登录接口回调处理
+     */
+    private Handler loginHandle = new Handler(Looper.myLooper()) {
+        @Override
+        public void handleMessage(Message msg) {
+            Rest restResponse = Rest.valueOfBundle(msg.getData());
+            if (restResponse.getCode() == RestCode.SUCCEED) {
+                Toast.makeText(LoginActivity.this, "登录成功", Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(LoginActivity.this, restResponse.getMsg(), Toast.LENGTH_SHORT).show();
+            }
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,11 +50,6 @@ public class LoginActivity extends AppCompatActivity {
         autoLoginBox = findViewById(R.id.autoLogin);
         accountEditText = findViewById(R.id.loginAccount);
         passwordEditText = findViewById(R.id.loginPassword);
-
-
-        this.setRememberListener();
-        this.setAutoLogin();
-
     }
 
     /**
@@ -48,11 +64,9 @@ public class LoginActivity extends AppCompatActivity {
                 .build();
 
         HttpRequest.getInstance().asyncPost(ApiEnum.USER_LOGIN, formBody, (rest) -> {
-            //处理登录
-            if (rest.getCode() == RestCode.SUCCEED)
-                Toast.makeText(this, "登录成功", Toast.LENGTH_LONG);
-            else
-                Toast.makeText(this, rest.getMsg(), Toast.LENGTH_LONG);
+            Message message = new Message();
+            message.setData(rest.packToBundle());
+            loginHandle.sendMessage(message);
         });
     }
 
@@ -78,14 +92,14 @@ public class LoginActivity extends AppCompatActivity {
     /**
      * 记住密码点击监听
      */
-    public void setRememberListener() {
+    public void remember(View view) {
 
     }
 
     /**
      * 自动登录点击监听
      */
-    public void setAutoLogin() {
+    public void autoLogin(View view) {
         this.autoLoginBox.setOnCheckedChangeListener((buttonView, isCheck) -> {
             this.rememberBox.setChecked(isCheck);
         });
