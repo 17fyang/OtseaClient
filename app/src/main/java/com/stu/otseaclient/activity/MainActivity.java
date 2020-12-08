@@ -3,10 +3,9 @@ package com.stu.otseaclient.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
-import androidx.appcompat.app.AppCompatActivity;
 import com.stu.com.R;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends MyBaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -14,8 +13,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         Button loginStartButton = findViewById(R.id.loginButton);
-        loginStartButton.setOnClickListener((view) -> {
-            startActivity(new Intent(this, LoginActivity.class));
-        });
+        loginStartButton.setOnClickListener((view) -> startActivity(new Intent(this, LoginActivity.class)));
     }
 }

@@ -25,6 +25,7 @@
             </intent-filter>
         </activity>
         <activity android:name="com.stu.otseaclient.activity.LoginActivity"/>
+        <activity android:name="com.stu.otseaclient.activity.RegisterActivity"/>
     </application>
 
 </manifest>

@@ -1,4 +1,4 @@
-package com.stu.otseaclient.general;
+package com.stu.otseaclient.enumreation;
 
 /**
  * @author: 乌鸦坐飞机亠
@@ -7,4 +7,5 @@ package com.stu.otseaclient.general;
  */
 public class TagEnum {
     public static final String REQUEST_NET = "http";
+    public static final String SYSTEM = "system error!!";
 }

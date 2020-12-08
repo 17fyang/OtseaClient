@@ -1,6 +1,8 @@
 package com.stu.otseaclient.general;
 
 import android.util.Log;
+import com.stu.otseaclient.enumreation.RestCode;
+import com.stu.otseaclient.enumreation.TagEnum;
 import okhttp3.*;
 import org.json.JSONObject;
 
@@ -39,6 +41,7 @@ public class HttpRequest {
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
+                if (restResponse == null) return;
                 try {
                     JSONObject json = new JSONObject(response.body().string());
                     int code = json.getInt("code");
@@ -46,7 +49,8 @@ public class HttpRequest {
                         Log.w(TagEnum.REQUEST_NET, "there is a unexpected and is body:" + json);
 
                     String msg = json.getString("msg");
-                    String data=json.getString("data");
+                    String data = json.getString("data");
+
                     restResponse.onRestResponse(new Rest(code, msg, data));
                 } catch (Exception e) {
                     e.printStackTrace();

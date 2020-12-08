@@ -83,8 +83,9 @@
                 android:layout_centerVertical="true"
                 android:lines="1"
                 android:padding="1dp"
-                android:text="@string/login_password"
+                android:text="@string/show_password"
                 android:textSize="16sp"/>
+
 
         <EditText
                 android:id="@+id/loginPassword"
@@ -120,7 +121,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             android:onClick="login"/>
-
     <TextView
             android:id="@+id/forgetPassword"
             android:layout_width="wrap_content"

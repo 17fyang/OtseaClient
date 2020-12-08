@@ -5,22 +5,19 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
-import android.util.Log;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Toast;
-import androidx.appcompat.app.AppCompatActivity;
 import com.stu.com.R;
-import com.stu.otseaclient.general.ApiEnum;
+import com.stu.otseaclient.enumreation.ApiEnum;
+import com.stu.otseaclient.enumreation.RestCode;
 import com.stu.otseaclient.general.HttpRequest;
 import com.stu.otseaclient.general.Rest;
-import com.stu.otseaclient.general.RestCode;
 import okhttp3.FormBody;
 import okhttp3.RequestBody;
-import org.json.JSONObject;
 
-public class LoginActivity extends AppCompatActivity {
+public class LoginActivity extends MyBaseActivity {
     CheckBox rememberBox;
     CheckBox autoLoginBox;
     EditText accountEditText;

@@ -1,0 +1,280 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#EEEEEE"
+        tools:context="com.stu.otseaclient.activity.RegisterActivity">
+
+
+    <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="77dp"
+            android:layout_height="77dp"
+            android:layout_marginTop="76dp"
+            android:background="@drawable/photo_shape"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.501"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@android:drawable/ic_menu_camera"/>
+
+    <RelativeLayout
+            android:id="@+id/relativeLayout2"
+            android:layout_width="0dp"
+            android:layout_height="46dp"
+            android:layout_marginTop="180dp"
+            android:background="@drawable/myshape"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginEnd="20dp"
+            android:layout_marginStart="20dp">
+
+        <TextView
+                android:id="@+id/textView2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
+                android:lines="1"
+                android:padding="1dp"
+                android:text="@string/register_show_sex"
+                android:textSize="16sp"/>
+
+        <RadioGroup
+                android:id="@+id/radioGroup"
+                android:layout_width="wrap_content"
+                android:layout_height="25dp"
+                android:layout_marginStart="2dp"
+                android:layout_toEndOf="@+id/textView2"
+                android:orientation="horizontal">
+
+            <RadioButton
+                    android:id="@+id/btnMan"
+                    android:layout_width="65dp"
+                    android:layout_height="wrap_content"
+                    android:checked="true"
+                    android:text="@string/man"
+                    android:textSize="16sp"/>
+
+            <RadioButton
+                    android:id="@+id/btnWoman"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/woman"
+                    android:textSize="16sp"/>
+        </RadioGroup>
+    </RelativeLayout>
+
+    <RelativeLayout
+            android:id="@+id/relativeLayout3"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/myshape"
+            app:layout_constraintEnd_toEndOf="@+id/relativeLayout2"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/relativeLayout2"
+            app:layout_constraintTop_toBottomOf="@+id/relativeLayout2"
+            android:layout_marginTop="15dp">
+
+        <TextView
+                android:id="@+id/textView3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
+                android:lines="1"
+                android:padding="1dp"
+                android:text="@string/register_show_mail"
+                android:textSize="16sp"/>
+
+        <EditText
+                android:id="@+id/registerEmail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="2dp"
+                android:layout_toEndOf="@+id/textView3"
+                android:background="@null"
+                android:ems="19"
+                android:hint="@string/register_hint_mail"
+                android:inputType="text"
+                android:padding="1dp"
+                android:textSize="16sp">
+
+
+        </EditText>
+    </RelativeLayout>
+
+    <RelativeLayout
+            android:id="@+id/relativeLayout4"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/myshape"
+            app:layout_constraintEnd_toEndOf="@+id/relativeLayout3"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/relativeLayout3"
+            app:layout_constraintTop_toBottomOf="@+id/relativeLayout3"
+            android:layout_marginTop="15dp">
+
+        <TextView
+                android:id="@+id/textView4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
+                android:lines="1"
+                android:padding="1dp"
+                android:text="@string/show_password"
+                android:textSize="16sp"/>
+
+        <EditText
+                android:id="@+id/registerPassword"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="2dp"
+                android:layout_toEndOf="@+id/textView4"
+                android:background="@null"
+                android:ems="19"
+                android:hint="@string/hint_password"
+                android:inputType="textPassword"
+                android:padding="1dp"
+                android:textSize="16sp">
+
+
+        </EditText>
+    </RelativeLayout>
+
+    <RelativeLayout
+            android:id="@+id/relativeLayout5"
+            android:layout_width="0dp"
+            android:layout_height="42dp"
+            android:background="@drawable/myshape"
+            app:layout_constraintEnd_toEndOf="@+id/relativeLayout4"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/relativeLayout4"
+            app:layout_constraintTop_toBottomOf="@+id/relativeLayout4"
+            android:layout_marginTop="15dp">
+
+        <TextView
+                android:id="@+id/textView5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
+                android:lines="1"
+                android:padding="1dp"
+                android:text=" 确认密码: "
+                android:textSize="16sp"/>
+
+        <EditText
+                android:id="@+id/registerPassword2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="2dp"
+                android:layout_toEndOf="@+id/textView5"
+                android:background="@null"
+                android:ems="19"
+                android:hint="输入确认密码"
+                android:inputType="textPassword"
+                android:padding="1dp"
+                android:textSize="16sp">
+
+
+        </EditText>
+    </RelativeLayout>
+
+    <RelativeLayout
+            android:id="@+id/relativeLayout6"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/myshape"
+            app:layout_constraintEnd_toEndOf="@+id/relativeLayout5"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/relativeLayout5"
+            app:layout_constraintTop_toBottomOf="@+id/relativeLayout5"
+            android:layout_marginTop="15dp">
+
+        <TextView
+                android:id="@+id/textView6"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
+                android:lines="1"
+                android:padding="1dp"
+                android:text=" 验证码: "
+                android:textSize="16sp"/>
+
+        <EditText
+                android:id="@+id/registerVerCode"
+                android:layout_width="159dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="0dp"
+                android:layout_toEndOf="@+id/textView6"
+                android:layout_centerVertical="true"
+                android:background="@null"
+                android:ems="19"
+                android:hint="请输入验证码"
+                android:inputType="text"
+                android:padding="1dp"
+                android:textSize="16sp">
+
+        </EditText>
+
+        <View
+                android:id="@+id/view1"
+                android:layout_width="1dip"
+                android:layout_height="25dp"
+                android:layout_centerVertical="true"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginLeft="2dp"
+                android:layout_marginRight="2dp"
+                android:layout_toEndOf="@+id/registerVerCode"
+                android:background="#EEEFFF"/>
+
+        <Button
+                android:id="@+id/bt_getVercode"
+                android:layout_width="132dp"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toEndOf="@+id/view1"
+                android:lines="1"
+                android:padding="1dp"
+                android:text=" 获取验证码"
+                android:background="#FFFFFF"
+                android:textSize="16sp"
+                android:layout_marginStart="0dp"
+                android:layout_alignStart="@+id/view1"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="0dp"
+                android:onClick="verification"/>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/relativeLayout6">
+
+        <Button
+                android:id="@+id/registerSubmit"
+                android:layout_width="345dp"
+                android:layout_height="43dp"
+                android:background="@color/colorAccent"
+                android:text="提交"
+                android:textSize="20sp"
+                android:layout_marginTop="20dp"
+                android:layout_centerHorizontal="true"
+                app:layout_constraintStart_toStartOf="parent"
+                android:onClick="handIn"/>
+    </RelativeLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
