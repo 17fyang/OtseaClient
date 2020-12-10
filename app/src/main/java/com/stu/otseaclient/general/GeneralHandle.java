@@ -6,7 +6,6 @@ import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
 import android.widget.Toast;
-import com.stu.otseaclient.activity.LoginActivity;
 import com.stu.otseaclient.enumreation.MessageKey;
 
 /**
@@ -29,8 +28,6 @@ public class GeneralHandle extends Handler {
 
     @Override
     public void handleMessage(Message msg) {
-        System.out.println("threadName : " + this.getLooper().getThread().getName());
-
         switch (msg.what) {
             case MessageKey.TOAST: {
                 Toast.makeText(this.curContext, msg.getData().getString("info"), Toast.LENGTH_SHORT).show();
@@ -39,7 +36,7 @@ public class GeneralHandle extends Handler {
             case MessageKey.SWITCH_ACTIVITY: {
                 Class<? extends Context> targetContext = SyncPool.getInstance().getTargetClass();
                 if (targetContext != null)
-                    this.curContext.startActivity(new Intent(this.curContext, LoginActivity.class));
+                    this.curContext.startActivity(new Intent(this.curContext, targetContext));
             }
         }
     }

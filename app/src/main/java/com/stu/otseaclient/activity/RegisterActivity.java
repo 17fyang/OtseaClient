@@ -2,15 +2,14 @@ package com.stu.otseaclient.activity;
 
 
 import android.os.Bundle;
-import android.os.Message;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 import cn.hutool.core.util.StrUtil;
 import com.stu.com.R;
+import com.stu.otseaclient.InputException;
 import com.stu.otseaclient.enumreation.ApiEnum;
 import com.stu.otseaclient.enumreation.RestCode;
-import com.stu.otseaclient.general.GeneralHandle;
 import com.stu.otseaclient.general.HttpRequest;
 import com.stu.otseaclient.util.MessageUtil;
 import okhttp3.FormBody;
@@ -51,7 +50,7 @@ public class RegisterActivity extends MyBaseActivity {
             if (rest.getCode() != RestCode.SUCCEED) {
                 MessageUtil.getInstance().sendToast(rest.getMsg());
             } else {
-                MessageUtil.getInstance().switchActivity(LoginActivity.class);
+                MessageUtil.getInstance().sendToast("验证码已发送");
             }
         });
     }
@@ -62,48 +61,31 @@ public class RegisterActivity extends MyBaseActivity {
      * @param view
      */
     public void handIn(View view) {
-        String account = accountEditText.getText().toString();
-        if (StrUtil.isEmpty(account)) {
-            Toast.makeText(RegisterActivity.this, "账号不能为空", Toast.LENGTH_SHORT).show();
-            return;
+        try {
+            String account = accountEditText.getText().toString();
+            if (StrUtil.isEmpty(account)) throw new InputException("账号不能为空");
+            String password = registerPasswordEditText.getText().toString();
+            if (StrUtil.isEmpty(password)) throw new InputException("密码不能为空");
+            String confirmPassword = confirmPasswordEditText.getText().toString();
+            if (!password.equals(confirmPassword)) throw new InputException("两次输入密码不一致");
+            String verificationCode = verificationEditText.getText().toString();
+            if (StrUtil.isEmpty(verificationCode)) throw new InputException("验证码不能为空");
+
+            RequestBody formBody = new FormBody.Builder()
+                    .add("mail", account)
+                    .add("password", password)
+                    .add("verificationCode", verificationCode).build();
+
+            HttpRequest.getInstance().asyncPost(ApiEnum.USER_REGISTER, formBody, (rest) -> {
+                if (rest.getCode() != RestCode.SUCCEED) {
+                    MessageUtil.getInstance().sendToast(rest.getMsg());
+                } else {
+                    MessageUtil.getInstance().sendToast("注册成功！");
+                    MessageUtil.getInstance().switchActivity(LoginActivity.class);
+                }
+            });
+        } catch (InputException e) {
+            Toast.makeText(RegisterActivity.this, e.getMsg(), Toast.LENGTH_SHORT).show();
         }
-
-        String password = registerPasswordEditText.getText().toString();
-        if (StrUtil.isEmpty(password)) {
-            Toast.makeText(RegisterActivity.this, "密码不能为空", Toast.LENGTH_SHORT).show();
-            return;
-        }
-
-        String confirmPassword = confirmPasswordEditText.getText().toString();
-        if (!password.equals(confirmPassword)) {
-            Toast.makeText(RegisterActivity.this, "两次输入密码不一致", Toast.LENGTH_SHORT).show();
-            return;
-        }
-
-        String verificationCode = verificationEditText.getText().toString();
-        if (StrUtil.isEmpty(verificationCode)) {
-            Toast.makeText(RegisterActivity.this, "验证码不能为空", Toast.LENGTH_SHORT).show();
-            return;
-        }
-
-        RequestBody formBody = new FormBody.Builder()
-                .add("mail", account)
-                .add("password", password)
-                .add("verificationCode", verificationCode).build();
-
-        HttpRequest.getInstance().asyncPost(ApiEnum.USER_REGISTER, formBody, (rest) -> {
-            Bundle bundle = new Bundle();
-            Message message = new Message();
-            message.setData(bundle);
-            if (rest.getCode() != RestCode.SUCCEED) {
-                message.what = 0x1;
-                bundle.putString("info", rest.getMsg());
-                GeneralHandle.getInstance().sendMessage(message);
-            } else {
-                message.what = 0x10;
-                GeneralHandle.getInstance().sendMessage(message);
-            }
-        });
-
     }
 }

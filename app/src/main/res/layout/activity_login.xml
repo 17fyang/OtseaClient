@@ -9,18 +9,33 @@
         tools:context="com.stu.otseaclient.activity.LoginActivity">
 
     <TextView
-            android:layout_width="176dp"
-            android:layout_height="52dp"
-            android:layout_marginTop="100dp"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="80dp"
             android:text="@string/soft_name"
             android:textColor="@android:color/background_light"
             android:textSize="30sp"
             android:textStyle="normal|italic"
             android:gravity="center"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.529"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"/>
+            app:layout_constraintTop_toTopOf="parent"
+            android:id="@+id/textView7"
+            app:layout_constraintHorizontal_bias="0.529"/>
+
+    <TextView
+            android:text="好的大学，没有围墙"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/logoView"
+            app:layout_constraintTop_toBottomOf="@+id/textView7"
+            app:layout_constraintEnd_toEndOf="@+id/textView7"
+            android:textStyle="normal|italic"
+            android:gravity="center"
+            android:textSize="18sp"
+            android:textColor="@android:color/background_light"
+            app:layout_constraintStart_toStartOf="@+id/textView7"
+            android:layout_marginTop="5dp"/>
 
     <RelativeLayout
             android:id="@+id/layoutOfAcc"
@@ -61,19 +76,20 @@
 
 
         </EditText>
+
     </RelativeLayout>
 
     <RelativeLayout
             android:id="@+id/layoutOfPwd"
             android:layout_width="350dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="265dp"
             android:background="@drawable/myshape"
             android:gravity="center"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/layoutOfAcc"
             app:layout_constraintHorizontal_bias="0.529"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintStart_toStartOf="@+id/layoutOfAcc"
+            app:layout_constraintTop_toBottomOf="@+id/layoutOfAcc"
+            android:layout_marginTop="25dp">
 
         <TextView
                 android:id="@+id/textView2"
@@ -110,17 +126,51 @@
             android:id="@+id/login"
             android:layout_width="350dp"
             android:layout_height="41dp"
-            android:layout_marginTop="360dp"
             android:background="#EF6291"
             android:text="@string/login_login"
             android:textColor="@android:color/white"
             android:textSize="22sp"
             android:gravity="center"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/relativeLayout"
             app:layout_constraintHorizontal_bias="0.529"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:onClick="login"/>
+            app:layout_constraintStart_toStartOf="@+id/relativeLayout"
+            android:onClick="login"
+            app:layout_constraintTop_toBottomOf="@+id/relativeLayout"
+            android:layout_marginTop="25dp"/>
+
+    <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="20dp"
+            app:layout_constraintTop_toBottomOf="@+id/layoutOfPwd"
+            android:layout_marginTop="15dp"
+            app:layout_constraintEnd_toEndOf="@+id/layoutOfPwd"
+            app:layout_constraintStart_toStartOf="@+id/layoutOfPwd"
+            android:id="@+id/relativeLayout">
+
+        <CheckBox
+                android:id="@+id/autoLogin"
+                android:layout_width="103dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="0dp"
+                android:text="@string/login_show_auto"
+                android:textColor="@android:color/background_light"
+                android:textSize="12sp"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="0dp"/>
+
+        <CheckBox
+                android:id="@+id/remPassword"
+                android:layout_width="103dp"
+                android:layout_height="match_parent"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="0dp"
+                android:text="@string/login_show_remember"
+                android:textColor="@android:color/background_light"
+                android:textSize="12sp"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentStart="true"/>
+    </RelativeLayout>
+
     <TextView
             android:id="@+id/forgetPassword"
             android:layout_width="wrap_content"
@@ -146,30 +196,5 @@
             android:textSize="18sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"/>
-
-    <CheckBox
-            android:id="@+id/remPassword"
-            android:layout_width="103dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="15dp"
-            android:text="@string/login_show_remember"
-            android:textColor="@android:color/background_light"
-            android:textSize="12sp"
-            app:layout_constraintStart_toStartOf="@+id/layoutOfPwd"
-            app:layout_constraintTop_toBottomOf="@+id/layoutOfPwd"
-            android:onClick="remember"/>
-
-    <CheckBox
-            android:id="@+id/autoLogin"
-            android:layout_width="103dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="132dp"
-            android:text="@string/login_show_auto"
-            android:textColor="@android:color/background_light"
-            android:textSize="12sp"
-            app:layout_constraintStart_toEndOf="@+id/remPassword"
-            app:layout_constraintTop_toTopOf="@+id/remPassword"
-            android:onClick="autoLogin"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

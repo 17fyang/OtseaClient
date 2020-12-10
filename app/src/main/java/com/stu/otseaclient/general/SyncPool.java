@@ -2,8 +2,6 @@ package com.stu.otseaclient.general;
 
 import android.content.Context;
 
-import java.util.concurrent.atomic.AtomicReference;
-
 /**
  * @author: 乌鸦坐飞机亠
  * @date: 2020/12/8 20:22
@@ -16,14 +14,14 @@ public class SyncPool {
         return instance;
     }
 
-    private AtomicReference<Class<? extends Context>> targetClass;
+    private volatile Class<? extends Context> targetClass;
 
     public Class<? extends Context> getTargetClass() {
-        return targetClass.get();
+        return targetClass;
     }
 
     public void setTargetClass(Class<? extends Context> targetClass) {
-        this.targetClass.set(targetClass);
+        this.targetClass = targetClass;
     }
 }
 
