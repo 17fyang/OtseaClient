@@ -14,6 +14,7 @@ public class SyncPool {
         return instance;
     }
 
+    // 用户handle中的activity切换，表示目标activity
     private volatile Class<? extends Context> targetClass;
 
     public Class<? extends Context> getTargetClass() {

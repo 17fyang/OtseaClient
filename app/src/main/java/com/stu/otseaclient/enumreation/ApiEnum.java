@@ -6,14 +6,14 @@ package com.stu.otseaclient.enumreation;
  * @Description:
  */
 public class ApiEnum {
-    public static final String HOST = "172.16.66.109";
+    public static final String HOST = "120.79.175.145";
     public static final int PORT = 8100;
 
     public static final String USER_LOGIN = concat("/otsea/user/login");
     public static final String USER_REGISTER = concat("/otsea/user/register");
     public static final String VERIFICATION = concat("/otsea/user/verification");
 
-    private static String concat(String url) {
+    public static String concat(String url) {
         return "http://" + HOST + ":" + PORT + url;
     }
 

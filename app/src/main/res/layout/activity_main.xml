@@ -1,29 +1,58 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:context="com.stu.otseaclient.activity.MainActivity">
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                tools:context="com.stu.otseaclient.activity.mainPage.MainActivity">
 
-    <TextView
-            android:layout_width="wrap_content"
+
+    <RadioGroup
+            android:id="@+id/rg_tab_bar"
+            android:layout_width="match_parent"
+            android:layout_height="52dp"
+            android:layout_alignParentBottom="false"
+            android:background="#FFFFFF"
+            android:orientation="horizontal"
+            android:layout_above="@id/main_bottomFill">
+
+        <RadioButton
+                android:id="@+id/rb_main"
+                style="@style/tab_menu_item"
+                android:drawableTop="@drawable/tag_menu_channel"
+                android:text="首页"/>
+
+        <RadioButton
+                android:id="@+id/rb_discovery"
+                style="@style/tab_menu_item"
+                android:drawableTop="@drawable/tag_menu_channel"
+                android:text="发现"/>
+
+        <RadioButton
+                android:id="@+id/rb_lesson"
+                style="@style/tab_menu_item"
+                android:drawableTop="@drawable/tag_menu_message"
+                android:text="课程"/>
+
+        <RadioButton
+                android:id="@+id/rb_mine"
+                style="@style/tab_menu_item"
+                android:drawableTop="@drawable/tag_menu_circle"
+                android:text="我的"/>
+    </RadioGroup>
+
+    <androidx.viewpager.widget.ViewPager
+            android:id="@+id/main_viewPage"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Hello World!"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent"/>
+            android:layout_marginBottom="0dp"
+            android:layout_above="@+id/rg_tab_bar"/>
 
-    <Button
-            android:text="登陆界面"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/loginButton"
-            app:layout_constraintTop_toTopOf="parent"
-            android:layout_marginTop="200dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"/>
+    <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="5dp"
+            android:layout_alignParentBottom="true"
+            android:id="@+id/main_bottomFill">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    </RelativeLayout>
+
+</RelativeLayout>
