@@ -10,9 +10,8 @@ import cn.hutool.core.util.StrUtil;
 import com.stu.com.R;
 import com.stu.otseaclient.InputException;
 import com.stu.otseaclient.enumreation.ApiEnum;
-import com.stu.otseaclient.enumreation.RestCode;
 import com.stu.otseaclient.general.HttpRequest;
-import com.stu.otseaclient.util.MessageUtil;
+import com.stu.otseaclient.util.UiUtil;
 import okhttp3.FormBody;
 import okhttp3.RequestBody;
 
@@ -52,12 +51,8 @@ public class LoginActivity extends MyBaseActivity {
                     .add("password", password)
                     .build();
 
-            HttpRequest.getInstance().asyncPost(ApiEnum.USER_LOGIN, formBody, (rest) -> {
-                if (rest.getCode() == RestCode.SUCCEED) {
-                    MessageUtil.getInstance().sendToast(rest.getMsg());
-                } else {
-                    MessageUtil.getInstance().sendToast(rest.getMsg());
-                }
+            HttpRequest.getInstance().asyncPostRest(ApiEnum.USER_LOGIN, formBody, (rest) -> {
+                UiUtil.sendToast(rest.getMsg());
             });
         } catch (InputException e) {
             Toast.makeText(LoginActivity.this, e.getMsg(), Toast.LENGTH_SHORT).show();

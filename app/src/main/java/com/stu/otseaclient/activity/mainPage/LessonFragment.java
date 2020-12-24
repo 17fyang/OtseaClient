@@ -4,8 +4,11 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ListView;
 import androidx.fragment.app.Fragment;
 import com.stu.com.R;
+import com.stu.otseaclient.component.adapter.LessonListAdapter;
+import com.stu.otseaclient.util.MockUtil;
 
 /**
  * @author: 乌鸦坐飞机亠
@@ -13,9 +16,22 @@ import com.stu.com.R;
  * @Description:
  */
 public class LessonFragment extends Fragment {
+    private View view;
+    private ListView lessonListView;
+    private LessonListAdapter lessonListAdapter;
+
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_lesson, container, false);
+        view = inflater.inflate(R.layout.fragment_lesson, container, false);
+
+        lessonListAdapter = new LessonListAdapter(MockUtil.mockLessonInfo(), R.layout.item_lesson_list);
+        lessonListView = view.findViewById(R.id.lesson_list_view);
+        lessonListView.setAdapter(lessonListAdapter);
+
+        //添加listview
+        view.findViewById(R.layout.item_lesson_list);
+
         return view;
     }
 }

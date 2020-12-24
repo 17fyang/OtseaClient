@@ -1,11 +1,8 @@
 package com.stu.otseaclient.util;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.os.Message;
-import com.stu.otseaclient.enumreation.MessageKey;
 import com.stu.otseaclient.general.GeneralHandle;
-import com.stu.otseaclient.general.SyncPool;
 
 /**
  * @author: 乌鸦坐飞机亠
@@ -13,36 +10,39 @@ import com.stu.otseaclient.general.SyncPool;
  * @Description:供子线程调用，需要向主线程发送message
  */
 public class MessageUtil {
-    private static MessageUtil instance = new MessageUtil();
-
-    public static MessageUtil getInstance() {
-        return instance;
-    }
 
     private MessageUtil() {
     }
 
     /**
-     * 弹出toast
+     * 向主线程handle发送一个message
      *
-     * @param info
+     * @param message
      */
-    public void sendToast(String info) {
-        Bundle bundle = new Bundle();
-        bundle.putString("info", info);
-        this.sendMessage(MessageKey.TOAST, bundle);
+    public static void sendMessage(Message message) {
+        GeneralHandle.getInstance().sendMessage(message);
     }
 
-    public void switchActivity(Class<? extends Context> targetActivity) {
-        SyncPool.getInstance().setTargetClass(targetActivity);
-        this.sendMessage(MessageKey.SWITCH_ACTIVITY, null);
+    /**
+     * 向主线程handle发送一个空的message
+     *
+     * @param what
+     */
+    public static void sendEmptyMessage(int what) {
+        GeneralHandle.getInstance().sendEmptyMessage(what);
     }
 
-    public void sendMessage(int what, Bundle bundle) {
+    /**
+     * 向主线程handle发送一个message，参数为bundle
+     *
+     * @param what
+     * @param bundle
+     */
+    public static void sendBundle(int what, Bundle bundle) {
         Message message = new Message();
         message.what = what;
         message.setData(bundle);
-        GeneralHandle.getInstance().sendMessage(message);
+        MessageUtil.sendMessage(message);
     }
 
 }

@@ -29,7 +29,6 @@ public class TestActivity extends MyBaseActivity {
 
         //VideoView与MediaController建立关联
         videoView.setMediaController(mediaController);
-        
 
         videoView.setVideoURI(Uri.parse(path));
     }

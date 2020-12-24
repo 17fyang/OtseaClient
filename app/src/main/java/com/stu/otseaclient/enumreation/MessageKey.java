@@ -8,4 +8,5 @@ package com.stu.otseaclient.enumreation;
 public class MessageKey {
     public static final int TOAST = 0x1;
     public static final int SWITCH_ACTIVITY = 0x10;
+    public static final int GET_NET_IMAGE = 0x2;
 }

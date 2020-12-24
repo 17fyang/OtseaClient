@@ -10,7 +10,7 @@ import java.util.concurrent.Executors;
  */
 public class Async {
     //线程池大小
-    public static final int THREAD_NUM = 5;
+    public static final int THREAD_NUM = 8;
     private static final ExecutorService threadPool = Executors.newFixedThreadPool(THREAD_NUM);
 
     /**

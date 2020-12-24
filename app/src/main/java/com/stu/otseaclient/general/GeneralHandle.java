@@ -10,8 +10,8 @@ import android.widget.Toast;
 import com.stu.otseaclient.enumreation.MessageKey;
 import com.stu.otseaclient.enumreation.TagEnum;
 
-import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * @author: 乌鸦坐飞机亠
@@ -21,7 +21,7 @@ import java.util.Map;
 public class GeneralHandle extends Handler {
     private static GeneralHandle instance;
     private Context curContext;
-    private Map<Integer, IHandlerConsumer> consumerMap = new HashMap<>();
+    private Map<Integer, IHandlerConsumer> consumerMap = new ConcurrentHashMap<>();
 
     public static GeneralHandle getInstance() {
         if (instance == null) instance = new GeneralHandle(Looper.myLooper());
@@ -65,6 +65,9 @@ public class GeneralHandle extends Handler {
 
     /**
      * 注册一个Consumer和对应的key
+     * <p>
+     * 注意：注册方法对于每个key只调用一次，所以IHandlerConsumer类的变量内容在创建时就固定了
+     * 如果是用内部类或者lambda的方式传值，且使用到了外部变量，则可能会出现结果和预期不符的情况
      *
      * @param what
      * @param iHandlerConsumer
@@ -72,6 +75,18 @@ public class GeneralHandle extends Handler {
     public void registerHandle(int what, IHandlerConsumer iHandlerConsumer) {
         if (!consumerMap.containsKey(what))
             consumerMap.put(what, iHandlerConsumer);
+        else
+            Log.e(TagEnum.INIT, "register handle by conflicting key " + what);
+    }
+
+    /**
+     * 判断某个key是否已经被注册
+     *
+     * @param key
+     * @return
+     */
+    public boolean hasKey(int key) {
+        return consumerMap.containsKey(key);
     }
 
     /**

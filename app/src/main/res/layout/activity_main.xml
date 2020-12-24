@@ -45,7 +45,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="0dp"
-            android:layout_above="@+id/rg_tab_bar"/>
+            android:layout_above="@+id/rg_tab_bar"
+            android:background="@drawable/main_bg_shape"/>
 
     <RelativeLayout
             android:layout_width="match_parent"

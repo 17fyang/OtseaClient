@@ -11,7 +11,7 @@ import com.stu.otseaclient.InputException;
 import com.stu.otseaclient.enumreation.ApiEnum;
 import com.stu.otseaclient.enumreation.RestCode;
 import com.stu.otseaclient.general.HttpRequest;
-import com.stu.otseaclient.util.MessageUtil;
+import com.stu.otseaclient.util.UiUtil;
 import okhttp3.FormBody;
 import okhttp3.RequestBody;
 
@@ -46,11 +46,11 @@ public class RegisterActivity extends MyBaseActivity {
             return;
         }
         RequestBody formBody = new FormBody.Builder().add("mail", account).build();
-        HttpRequest.getInstance().asyncPost(ApiEnum.VERIFICATION, formBody, (rest) -> {
+        HttpRequest.getInstance().asyncPostRest(ApiEnum.VERIFICATION, formBody, (rest) -> {
             if (rest.getCode() != RestCode.SUCCEED) {
-                MessageUtil.getInstance().sendToast(rest.getMsg());
+                UiUtil.sendToast(rest.getMsg());
             } else {
-                MessageUtil.getInstance().sendToast("验证码已发送");
+                UiUtil.sendToast("验证码已发送");
             }
         });
     }
@@ -76,12 +76,12 @@ public class RegisterActivity extends MyBaseActivity {
                     .add("password", password)
                     .add("verificationCode", verificationCode).build();
 
-            HttpRequest.getInstance().asyncPost(ApiEnum.USER_REGISTER, formBody, (rest) -> {
+            HttpRequest.getInstance().asyncPostRest(ApiEnum.USER_REGISTER, formBody, (rest) -> {
                 if (rest.getCode() != RestCode.SUCCEED) {
-                    MessageUtil.getInstance().sendToast(rest.getMsg());
+                    UiUtil.sendToast(rest.getMsg());
                 } else {
-                    MessageUtil.getInstance().sendToast("注册成功！");
-                    MessageUtil.getInstance().switchActivity(LoginActivity.class);
+                    UiUtil.sendToast("注册成功！");
+                    UiUtil.switchActivity(LoginActivity.class);
                 }
             });
         } catch (InputException e) {

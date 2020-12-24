@@ -7,6 +7,7 @@ import okhttp3.*;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -14,6 +15,7 @@ import java.util.concurrent.TimeUnit;
  * @date: 2020/12/7 19:05
  * @Description:
  */
+@SuppressWarnings("all")
 public class HttpRequest {
     public static final int CONNECT_TIMEOUT = 5;
     private final static HttpRequest instance = new HttpRequest();
@@ -23,13 +25,43 @@ public class HttpRequest {
     }
 
     /**
-     * 异步发送post请求
+     * 同步发送get请求，返回stream结果数据
+     *
+     * @param url
+     * @param streamResponse
+     */
+    public void syncGetStream(String url, IStreamResponse streamResponse) {
+        InputStream inputStream = null;
+        try {
+            Request request = new Request.Builder().url(url).get().build();
+            OkHttpClient client = new OkHttpClient.Builder().readTimeout(CONNECT_TIMEOUT, TimeUnit.SECONDS).build();
+            Response response = client.newCall(request).execute();
+            if (response.isSuccessful()) {
+                inputStream = response.body().byteStream();
+                streamResponse.onStreamResponse(inputStream);
+            } else {
+                Log.e(TagEnum.REQUEST_NET, "fail to get syncGetStream response");
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            if (inputStream != null) {
+                try {
+                    inputStream.close();
+                } catch (IOException e) {
+                }
+            }
+        }
+    }
+
+    /**
+     * 异步发送post请求,返回rest格式数据
      *
      * @param url
      * @param body
      * @param restResponse
      */
-    public void asyncPost(String url, RequestBody body, IRestResponse restResponse) {
+    public void asyncPostRest(String url, RequestBody body, IRestResponse restResponse) {
         OkHttpClient client = new OkHttpClient.Builder().readTimeout(CONNECT_TIMEOUT, TimeUnit.SECONDS).build();
         Request request = new Request.Builder().url(url).post(body).build();
         Call call = client.newCall(request);
@@ -59,8 +91,6 @@ public class HttpRequest {
             }
         });
     }
-
-
 }
 
 

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+
+    <com.stu.otseaclient.component.image.NetImageView
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            app:srcCompat="@drawable/tag_menu_circle"
+            android:id="@+id/lesson_info_image"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="22dp"
+            android:layout_centerVertical="true"
+            android:layout_marginVertical="25dp"/>
+
+    <TextView
+            android:text="TextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/lesson_info_title"
+            android:layout_toEndOf="@+id/lesson_info_image"
+            android:layout_marginStart="17dp"
+            android:layout_alignTop="@+id/lesson_info_image"
+            android:layout_marginTop="5dp"
+            android:textSize="18sp"/>
+
+    <TextView
+            android:text="TextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/lesson_info_author"
+            android:layout_marginStart="0dp"
+            android:layout_alignStart="@+id/lesson_info_title"
+            android:layout_marginTop="7dp"
+            android:layout_below="@+id/lesson_info_title"/>
+</RelativeLayout>

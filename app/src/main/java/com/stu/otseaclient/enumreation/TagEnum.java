@@ -6,6 +6,9 @@ package com.stu.otseaclient.enumreation;
  * @Description:
  */
 public class TagEnum {
-    public static final String REQUEST_NET = "http";
+    public static final String REQUEST_NET = "net";
     public static final String SYSTEM = "system error!!";
+    public static final String INIT = "init";
+    public static final String UNKNOWN = "unknown";
+    public static final String TEST = "test";
 }
