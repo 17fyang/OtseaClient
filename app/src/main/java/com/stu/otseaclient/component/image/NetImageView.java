@@ -8,7 +8,6 @@ import android.util.AttributeSet;
 import android.util.Log;
 import com.stu.otseaclient.enumreation.MessageKey;
 import com.stu.otseaclient.enumreation.TagEnum;
-import com.stu.otseaclient.general.Async;
 import com.stu.otseaclient.general.GeneralHandle;
 import com.stu.otseaclient.general.HttpRequest;
 import com.stu.otseaclient.util.MessageUtil;
@@ -57,13 +56,12 @@ public class NetImageView extends androidx.appcompat.widget.AppCompatImageView {
      */
     public void setImageURL(String path) {
         //在子线程中进行io获取图片流
-        Async.run(() -> HttpRequest.getInstance().syncGetStream(path, (stream) -> {
-                    Bitmap bitmap = BitmapFactory.decodeStream(stream);
-                    Message msg = new Message();
-                    msg.what = MessageKey.GET_NET_IMAGE;
-                    msg.obj = new Object[]{this, bitmap};
-                    MessageUtil.sendMessage(msg);
-                })
-        );
+        HttpRequest.getInstance().asyncGetStream(path, (stream) -> {
+            Bitmap bitmap = BitmapFactory.decodeStream(stream);
+            Message msg = new Message();
+            msg.what = MessageKey.GET_NET_IMAGE;
+            msg.obj = new Object[]{this, bitmap};
+            MessageUtil.sendMessage(msg);
+        });
     }
 }

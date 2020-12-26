@@ -25,33 +25,35 @@ public class HttpRequest {
     }
 
     /**
-     * 同步发送get请求，返回stream结果数据
+     * 异步发送get请求，返回stream结果数据
      *
      * @param url
      * @param streamResponse
      */
-    public void syncGetStream(String url, IStreamResponse streamResponse) {
-        InputStream inputStream = null;
-        try {
-            Request request = new Request.Builder().url(url).get().build();
-            OkHttpClient client = new OkHttpClient.Builder().readTimeout(CONNECT_TIMEOUT, TimeUnit.SECONDS).build();
-            Response response = client.newCall(request).execute();
-            if (response.isSuccessful()) {
-                inputStream = response.body().byteStream();
-                streamResponse.onStreamResponse(inputStream);
-            } else {
-                Log.e(TagEnum.REQUEST_NET, "fail to get syncGetStream response");
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-            if (inputStream != null) {
-                try {
-                    inputStream.close();
-                } catch (IOException e) {
+    public void asyncGetStream(String url, IStreamResponse streamResponse) {
+        Async.run(() -> {
+            InputStream inputStream = null;
+            try {
+                Request request = new Request.Builder().url(url).get().build();
+                OkHttpClient client = new OkHttpClient.Builder().readTimeout(CONNECT_TIMEOUT, TimeUnit.SECONDS).build();
+                Response response = client.newCall(request).execute();
+                if (response.isSuccessful()) {
+                    inputStream = response.body().byteStream();
+                    streamResponse.onStreamResponse(inputStream);
+                } else {
+                    Log.e(TagEnum.REQUEST_NET, "fail to get syncGetStream response");
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            } finally {
+                if (inputStream != null) {
+                    try {
+                        inputStream.close();
+                    } catch (IOException e) {
+                    }
                 }
             }
-        }
+        });
     }
 
     /**
