@@ -18,4 +18,12 @@
         <item name="android:textSize">15sp</item>
     </style>
 
+    <style name="lesson_detail_radio_button">
+        <item name="android:gravity">center</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">@color/textColorRank2</item>
+        <item name="android:button">@null</item>
+        <item name="android:drawableTop">@drawable/frame_shape</item>
+    </style>
+
 </resources>

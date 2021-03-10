@@ -1,10 +1,12 @@
 package com.stu.otseaclient.general;
 
 import android.util.Log;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.stu.otseaclient.enumreation.RestCode;
 import com.stu.otseaclient.enumreation.TagEnum;
+import com.stu.otseaclient.util.JsonUtil;
 import okhttp3.*;
-import org.json.JSONObject;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -17,6 +19,7 @@ import java.util.concurrent.TimeUnit;
  */
 @SuppressWarnings("all")
 public class HttpRequest {
+    //连接超时时间（秒）
     public static final int CONNECT_TIMEOUT = 5;
     private final static HttpRequest instance = new HttpRequest();
 
@@ -41,7 +44,7 @@ public class HttpRequest {
                     inputStream = response.body().byteStream();
                     streamResponse.onStreamResponse(inputStream);
                 } else {
-                    Log.e(TagEnum.REQUEST_NET, "fail to get syncGetStream response");
+                    Log.e(TagEnum.REQUEST_NET, "fail to get syncGetStream response : " + url);
                 }
             } catch (IOException e) {
                 e.printStackTrace();
@@ -77,21 +80,56 @@ public class HttpRequest {
             public void onResponse(Call call, Response response) throws IOException {
                 if (restResponse == null) return;
                 try {
-                    JSONObject json = new JSONObject(response.body().string());
-                    int code = json.getInt("code");
-                    if (code != RestCode.SUCCEED)
-                        Log.w(TagEnum.REQUEST_NET, "there is a unexpected and is body:" + json);
+                    ObjectNode restNode = (ObjectNode) JsonUtil.getObjectMapper().readTree(response.body().string());
 
-                    String msg = json.getString("msg");
-                    String data = json.getString("data");
+                    Rest rest = packFromJson(restNode);
 
-                    restResponse.onRestResponse(new Rest(code, msg, data));
+                    restResponse.onRestResponse(rest);
                 } catch (Exception e) {
                     e.printStackTrace();
                     Log.e(TagEnum.REQUEST_NET, "there is a exception on running callback " + url);
                 }
             }
         });
+    }
+
+    /**
+     * 同步发送post请求
+     *
+     * @param url
+     * @param body
+     * @return
+     */
+    public Rest syncPost(String url, RequestBody body) {
+        OkHttpClient client = new OkHttpClient.Builder().readTimeout(CONNECT_TIMEOUT, TimeUnit.SECONDS).build();
+        Request request = new Request.Builder().url(url).post(body).build();
+
+        try {
+            Response response = client.newCall(request).execute();
+            if (!response.isSuccessful()) throw new RuntimeException("fail to get server result!!");
+
+            String responseStr = response.body().string();
+
+            ObjectNode restNode = (ObjectNode) JsonUtil.getObjectMapper().readTree(responseStr);
+            return packFromJson(restNode);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    private Rest packFromJson(ObjectNode json) {
+        int code = 0;
+
+        code = json.get("code").asInt();
+
+        if (code != RestCode.SUCCEED)
+            Log.w(TagEnum.REQUEST_NET, "there is a unexpected and is body:" + json);
+
+        String msg = json.get("msg").asText();
+        JsonNode data = json.get("data");
+
+        return new Rest(code, msg, data);
     }
 }
 

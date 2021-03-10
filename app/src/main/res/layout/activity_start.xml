@@ -39,5 +39,12 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/mainButton"
                 android:layout_marginTop="15dp"/>
+
+        <Button
+                android:text="网络io测试"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/io_test_button"
+                android:layout_marginTop="15dp"/>
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

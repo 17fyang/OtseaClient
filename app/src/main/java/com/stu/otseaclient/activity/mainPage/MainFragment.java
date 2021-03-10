@@ -4,9 +4,17 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ListView;
 import androidx.fragment.app.Fragment;
 import com.stu.com.R;
+import com.stu.otseaclient.component.adapter.LessonListAdapter;
 import com.stu.otseaclient.component.image.GlideImageLoader;
+import com.stu.otseaclient.controller.LessonController;
+import com.stu.otseaclient.enumreation.MessageKey;
+import com.stu.otseaclient.general.Async;
+import com.stu.otseaclient.general.GeneralHandle;
+import com.stu.otseaclient.pojo.LessonInfo;
+import com.stu.otseaclient.util.MessageUtil;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
 
@@ -19,12 +27,33 @@ import java.util.List;
  * @Description:
  */
 public class MainFragment extends Fragment {
+    private ListView mainListView;
+    private LessonListAdapter lessonListAdapter;
+    private List<LessonInfo> lessonInfoList;
     private View view;
+
+    {
+        //注册主界面刷新listview的handler
+        GeneralHandle.getInstance().registerHandle(MessageKey.REFRESH_MAIN_LESSON_LIST, (ctx, msg) -> {
+            lessonListAdapter.setItemData(this.lessonInfoList);
+            lessonListAdapter.notifyDataSetChanged();
+        });
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_main, container, false);
+
+        Async.run(() -> {
+            lessonInfoList = LessonController.getInstance().listAction();
+            MessageUtil.sendEmptyMessage(MessageKey.REFRESH_MAIN_LESSON_LIST);
+        });
+
         initBanner();
+
+        lessonListAdapter = new LessonListAdapter(lessonInfoList, R.layout.item_lesson_list);
+        mainListView = view.findViewById(R.id.main_lesson_list);
+        mainListView.setAdapter(lessonListAdapter);
 
         return view;
     }

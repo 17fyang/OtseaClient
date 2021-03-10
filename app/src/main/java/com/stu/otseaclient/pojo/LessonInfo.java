@@ -1,42 +1,37 @@
 package com.stu.otseaclient.pojo;
 
+
 /**
  * @author: 乌鸦坐飞机亠
- * @date: 2020/12/22 14:39
- * @Description:
+ * @date: 2021/1/3 15:07
+ * @Description: 前端展示的一个课程的vo
  */
 public class LessonInfo {
-    private String imageUrl;
-    private String lessonTitle;
-    private String authorName;
+    private Lesson lesson;
+    private Resource titleImage;
+    private UserInfo authorInfo;
 
-    public LessonInfo(String imageUrl, String lessonTitle, String authorName) {
-        this.imageUrl = imageUrl;
-        this.lessonTitle = lessonTitle;
-        this.authorName = authorName;
+    public Lesson getLesson() {
+        return lesson;
     }
 
-    public String getImageUrl() {
-        return imageUrl;
+    public void setLesson(Lesson lesson) {
+        this.lesson = lesson;
     }
 
-    public void setImageUrl(String imageUrl) {
-        this.imageUrl = imageUrl;
+    public Resource getTitleImage() {
+        return titleImage;
     }
 
-    public String getLessonTitle() {
-        return lessonTitle;
+    public void setTitleImage(Resource titleImage) {
+        this.titleImage = titleImage;
     }
 
-    public void setLessonTitle(String lessonTitle) {
-        this.lessonTitle = lessonTitle;
+    public UserInfo getAuthorInfo() {
+        return authorInfo;
     }
 
-    public String getAuthorName() {
-        return authorName;
-    }
-
-    public void setAuthorName(String authorName) {
-        this.authorName = authorName;
+    public void setAuthorInfo(UserInfo authorInfo) {
+        this.authorInfo = authorInfo;
     }
 }

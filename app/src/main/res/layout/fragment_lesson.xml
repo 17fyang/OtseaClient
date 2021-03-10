@@ -47,10 +47,10 @@
     </RelativeLayout>
 
     <TextView
-            android:text="我的课程 %d"
+            android:text="我的课程 0"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/textView10"
+            android:id="@+id/mine_lesson_num"
             android:layout_marginTop="14dp"
             android:layout_below="@+id/lesson_ad_layout"
             android:layout_alignParentStart="true"
@@ -63,7 +63,7 @@
             android:layout_height="wrap_content"
             android:id="@+id/textView19"
             android:layout_marginTop="0dp"
-            android:layout_alignTop="@+id/textView10"
+            android:layout_alignTop="@+id/mine_lesson_num"
             android:layout_alignParentEnd="true"
             android:layout_marginEnd="20dp"
             android:textSize="16sp"/>
@@ -71,9 +71,12 @@
     <ListView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:fastScrollEnabled="false"
+            android:scrollbars="none"
+            android:divider="@color/bgColor"
+            android:dividerHeight="10dp"
             android:layout_marginTop="50dp"
             android:layout_below="@+id/lesson_ad_layout"
-            android:background="@drawable/frame_shape"
             android:id="@+id/lesson_list_view"
             android:layout_alignParentEnd="true"
             android:layout_marginEnd="13dp"

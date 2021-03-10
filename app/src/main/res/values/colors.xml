@@ -4,5 +4,8 @@
     <color name="colorPrimaryDark">#3700B3</color>
     <color name="colorAccent">#03DAC5</color>
     <color name="green">#009688</color>
-    <color name="headColor">#03DAC5</color>
+    <color name="headColor">#076EDC</color>
+    <color name="bgColor">#F0F0F0</color>
+    <color name="textColorRank3">#FF1E1C1C</color>
+    <color name="textColorRank2">#272525</color>
 </resources>

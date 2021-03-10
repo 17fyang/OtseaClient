@@ -54,6 +54,13 @@ public abstract class BaseListAdapter<T> extends BaseAdapter {
      */
     public abstract void bindView(ViewHolder holder, T item);
 
+    public void setItemData(List<T> itemData) {
+        this.itemData = itemData;
+    }
+
+    public List<T> getItemData() {
+        return itemData;
+    }
 
     /**
      * 封装每个item的holder

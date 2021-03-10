@@ -3,8 +3,9 @@ package com.stu.otseaclient.component.adapter;
 import android.widget.TextView;
 import com.stu.com.R;
 import com.stu.otseaclient.component.image.NetImageView;
+import com.stu.otseaclient.enumreation.ApiEnum;
 import com.stu.otseaclient.pojo.LessonInfo;
-import com.stu.otseaclient.util.UriUtil;
+import com.stu.otseaclient.util.DateUtil;
 
 import java.util.List;
 
@@ -23,9 +24,11 @@ public class LessonListAdapter extends BaseListAdapter<LessonInfo> {
         NetImageView lessonImageView = holder.getItem().findViewById(R.id.lesson_info_image);
         TextView titleView = holder.getItem().findViewById(R.id.lesson_info_title);
         TextView authorView = holder.getItem().findViewById(R.id.lesson_info_author);
+        TextView publishTimeView = holder.getItem().findViewById(R.id.lesson_info_time);
 
-        lessonImageView.setImageURL(UriUtil.parseCache(item.getImageUrl()));
-        titleView.setText(item.getLessonTitle());
-        authorView.setText(item.getAuthorName());
+        lessonImageView.setImageURL(ApiEnum.file(item.getTitleImage().getResourcePath()));
+        titleView.setText(item.getLesson().getTitle());
+        authorView.setText(item.getAuthorInfo().getUserBaseInfo().getName());
+        publishTimeView.setText(DateUtil.showTime(item.getLesson().getCreateTime()));
     }
 }

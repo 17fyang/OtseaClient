@@ -1,6 +1,6 @@
 package com.stu.otseaclient.general;
 
-import android.os.Bundle;
+import com.fasterxml.jackson.databind.JsonNode;
 
 /**
  * @Author: 乌鸦坐飞机亠
@@ -11,27 +11,12 @@ import android.os.Bundle;
 public class Rest {
     private int code;
     private String msg;
-    private String data;
+    private JsonNode data;
 
-    public Rest(int code, String msg, String data) {
+    public Rest(int code, String msg, JsonNode data) {
         this.code = code;
         this.msg = msg;
         this.data = data;
-    }
-
-    public Bundle packToBundle() {
-        Bundle restBundle = new Bundle();
-        restBundle.putInt("code", this.code);
-        restBundle.putString("msg", this.msg);
-        restBundle.putString("data", this.data);
-        return restBundle;
-    }
-
-    public static Rest valueOfBundle(Bundle restBundle) {
-        int code = restBundle.getInt("code");
-        String msg = restBundle.getString("msg");
-        String data = restBundle.getString("data");
-        return new Rest(code, msg, data);
     }
 
     @Override
@@ -59,11 +44,11 @@ public class Rest {
         this.msg = msg;
     }
 
-    public String getData() {
+    public JsonNode getData() {
         return data;
     }
 
-    public void setData(String data) {
+    public void setData(JsonNode data) {
         this.data = data;
     }
 }

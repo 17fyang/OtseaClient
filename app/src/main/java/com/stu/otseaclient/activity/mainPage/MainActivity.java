@@ -29,7 +29,7 @@ public class MainActivity extends MyBaseActivity implements RadioGroup.OnChecked
         PagerAdapter pagerAdapter = new MyFragmentPageAdapter(getSupportFragmentManager(), 0);
 
         //设置adapter
-        viewPager = findViewById(R.id.main_viewPage);
+        viewPager = findViewById(R.id.main_view_pager);
         viewPager.setAdapter(pagerAdapter);
         viewPager.setCurrentItem(MAIN_FRAGMENT);
         viewPager.addOnPageChangeListener(this);

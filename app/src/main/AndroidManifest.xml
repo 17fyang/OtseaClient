@@ -1,15 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+          xmlns:tools="http://schemas.android.com/tools"
           package="com.stu.com">
 
     <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
     <uses-permission android:name="android.permission.RECORD_AUDIO"/>
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.RECORD_AUDIO"/>
-    <uses-permission android:name="android.permission.RECORD_VIDEO"/>
     <uses-permission android:name="android.permission.CAMERA"/>
+
+    <!--网络状态-->
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <!--锁屏工作，防止休眠-->
+    <uses-permission android:name="android.permission.WAKE_LOCK"/>
+    <!--悬浮窗-->
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"/>
+
 
     <application
             android:allowBackup="true"
@@ -18,7 +24,10 @@
             android:roundIcon="@mipmap/ic_launcher_round"
             android:supportsRtl="true"
             android:theme="@style/AppTheme"
-            android:networkSecurityConfig="@xml/network_security_config">
+
+            android:requestLegacyExternalStorage="true"
+            android:networkSecurityConfig="@xml/network_security_config"
+            tools:targetApi="q">
         <activity android:name="com.stu.otseaclient.activity.StartActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
@@ -27,7 +36,12 @@
         </activity>
         <activity android:name="com.stu.otseaclient.activity.LoginActivity"/>
         <activity android:name="com.stu.otseaclient.activity.RegisterActivity"/>
-        <activity android:name="com.stu.otseaclient.activity.TestActivity"/>
+
+        <!--在你需要全屏播放的Activity中加上这个属性，告诉系统Activity在横竖屏切换时不要销毁Activity-->
+        <activity
+                android:name="com.stu.otseaclient.activity.lessonPage.LessonDetailActivity"
+                android:screenOrientation="portrait"
+                android:configChanges="orientation|screenSize"/>
         <activity android:name="com.stu.otseaclient.activity.mainPage.MainActivity"/>
     </application>
 
