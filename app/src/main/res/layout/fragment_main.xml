@@ -1,37 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
     <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_height="60dp"
             android:layout_marginTop="0dp"
             android:background="@color/headColor"
             android:layout_alignParentTop="true"
             android:id="@+id/main_search_layout">
 
-        <EditText
-                android:layout_width="320dp"
-                android:layout_height="35dp"
-                android:inputType="textPersonName"
-                android:ems="10"
-                android:id="@+id/main_search_input"
-                android:layout_marginTop="15dp"
-                android:layout_alignParentTop="true"
-                android:layout_alignParentStart="true"
-                android:layout_marginStart="20dp"/>
+        <include layout="@layout/item_search"/>
 
-        <SearchView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_toEndOf="@+id/main_search_input"
-                android:layout_marginStart="-5dp"
-                android:layout_alignTop="@+id/main_search_input"
-                android:layout_marginTop="-5dp"/>
     </RelativeLayout>
 
     <RelativeLayout
@@ -64,7 +47,8 @@
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:layout_marginVertical="5dp">
+                android:layout_marginVertical="5dp"
+                android:id="@+id/main_type_layout1">
 
             <ImageButton
                     android:layout_width="match_parent"
@@ -112,7 +96,8 @@
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:layout_marginVertical="5dp">
+                android:layout_marginVertical="5dp"
+                android:id="@+id/main_type_layout2">
 
             <ImageButton
                     android:layout_width="match_parent"
@@ -157,59 +142,15 @@
     </LinearLayout>
 
 
-    <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="100dp"
-            android:background="@drawable/frame_shape"
-            android:layout_marginBottom="20dp"
-            android:layout_weight="1"
-            android:visibility="visible"
-            android:layout_marginTop="20dp"
-            android:layout_below="@id/main_type_layout"
-            android:layout_marginHorizontal="20dp"
-            android:id="@+id/main_top_adv_layout">
-
-        <ImageView
-                android:layout_width="102dp"
-                android:layout_height="98dp"
-                android:id="@+id/imageView4"
-                android:layout_marginStart="18dp"
-                android:layout_centerVertical="true"
-                app:srcCompat="@android:drawable/ic_dialog_map"/>
-
-        <TextView
-                android:text="TextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/textView12"
-                android:layout_toEndOf="@+id/imageView4"
-                android:layout_marginStart="34dp"
-                android:layout_alignTop="@+id/imageView4"
-                android:layout_marginTop="13dp"
-                android:textSize="24sp"/>
-
-        <TextView
-                android:text="@string/textview"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/textView13"
-                android:layout_marginTop="8dp"
-                android:layout_below="@+id/textView12"
-                android:layout_marginStart="0dp"
-                android:layout_alignStart="@+id/textView12"
-                android:textSize="18sp"/>
-    </RelativeLayout>
-
     <ListView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:fastScrollEnabled="false"
-            android:scrollbars="none"
-            android:divider="@color/bgColor"
+            style="@style/common_list_view"
             android:dividerHeight="10dp"
-            android:layout_marginTop="29dp"
-            android:layout_below="@id/main_top_adv_layout"
+            android:layout_marginTop="18dp"
+            android:layout_below="@id/main_type_layout"
             android:layout_marginHorizontal="20dp"
             android:id="@+id/main_lesson_list"/>
+
 
 </RelativeLayout>

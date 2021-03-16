@@ -5,37 +5,18 @@
 
     <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_height="60dp"
             android:layout_marginTop="0dp"
             android:background="@color/headColor"
             android:layout_alignParentTop="true"
             android:id="@+id/main_search_layout">
 
-        <EditText
-                android:layout_width="320dp"
-                android:layout_height="35dp"
-                android:inputType="textPersonName"
-                android:ems="10"
-                android:id="@+id/main_search_input"
-                android:layout_marginTop="15dp"
-                android:layout_alignParentTop="true"
-                android:layout_alignParentStart="true"
-                android:layout_marginStart="20dp"/>
-
-        <SearchView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_toEndOf="@+id/main_search_input"
-                android:layout_marginStart="-5dp"
-                android:layout_alignTop="@+id/main_search_input"
-                android:layout_marginTop="-5dp"/>
+        <include layout="@layout/item_search"/>
     </RelativeLayout>
 
     <ListView
             android:layout_width="match_parent"
-            android:fastScrollEnabled="false"
-            android:scrollbars="none"
-            android:divider="@color/bgColor"
+            style="@style/common_list_view"
             android:dividerHeight="15dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"

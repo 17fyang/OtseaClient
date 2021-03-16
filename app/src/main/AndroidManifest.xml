@@ -36,6 +36,7 @@
         </activity>
         <activity android:name="com.stu.otseaclient.activity.LoginActivity"/>
         <activity android:name="com.stu.otseaclient.activity.RegisterActivity"/>
+        <activity android:name="com.stu.otseaclient.activity.LessonSearchActivity"/>
 
         <!--在你需要全屏播放的Activity中加上这个属性，告诉系统Activity在横竖屏切换时不要销毁Activity-->
         <activity

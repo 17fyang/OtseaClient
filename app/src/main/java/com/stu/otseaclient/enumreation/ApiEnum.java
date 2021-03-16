@@ -14,6 +14,9 @@ public class ApiEnum {
     public static final String VERIFICATION = user("/verification");
     public static final String LIST_DISCOVERY = content("/post/listAction");
     public static final String LIST_LESSONS = content("/lesson/listAction");
+    public static final String RESOURCE_DETAIL = content("/lesson/resource");
+    public static final String LAST_LESSON = content("/lesson/lastWatchLesson");
+    public static final String SEARCH_LESSON = content("/lesson/search");
 
     public static String concat(String url) {
         return "http://" + HOST + ":" + PORT + url;
@@ -30,5 +33,10 @@ public class ApiEnum {
     public static String file(String url) {
         return concat("/otsea/static" + url);
     }
+
+    public static String head(String url) {
+        return file("/head" + url);
+    }
+
 
 }

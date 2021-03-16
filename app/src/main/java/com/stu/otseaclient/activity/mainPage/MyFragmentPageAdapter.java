@@ -21,6 +21,10 @@ public class MyFragmentPageAdapter extends FragmentPagerAdapter {
         totalFragment[MainActivity.MINE_FRAGMENT] = new MineFragment();
     }
 
+    public Fragment getFragment(int index) {
+        return totalFragment[index];
+    }
+
     @Override
     public Fragment getItem(int position) {
         return totalFragment[position];

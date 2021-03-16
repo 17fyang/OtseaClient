@@ -7,6 +7,6 @@ package com.stu.otseaclient.util;
  */
 public class StringUtil {
     public static boolean isNull(String value) {
-        return value == null || value.equals("null") || value.equals("NULL");
+        return value == null || value.equals("") || value.equals("null") || value.equals("NULL");
     }
 }

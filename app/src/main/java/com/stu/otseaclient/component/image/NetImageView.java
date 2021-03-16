@@ -1,14 +1,18 @@
 package com.stu.otseaclient.component.image;
 
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.os.Message;
 import android.util.AttributeSet;
-import com.stu.otseaclient.enumreation.MessageKey;
+import com.nostra13.universalimageloader.cache.disc.naming.Md5FileNameGenerator;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
+import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
+import com.nostra13.universalimageloader.utils.StorageUtils;
+import com.stu.otseaclient.controller.ResourceController;
+import com.stu.otseaclient.general.Async;
 import com.stu.otseaclient.general.GeneralHandle;
-import com.stu.otseaclient.general.HttpRequest;
-import com.stu.otseaclient.util.MessageUtil;
+import com.stu.otseaclient.pojo.Resource;
+
+import java.io.File;
 
 /**
  * @author: 乌鸦坐飞机亠
@@ -16,14 +20,45 @@ import com.stu.otseaclient.util.MessageUtil;
  * @Description:
  */
 public class NetImageView extends androidx.appcompat.widget.AppCompatImageView {
-    //初始化设置handle监听
+    public static final int IMAGE_NET_THREAD_POOL_SIZE = 3;
+    private static ImageLoader imageLoader;
+
     static {
-        GeneralHandle.getInstance().registerHandle(MessageKey.GET_NET_IMAGE, (curText, msg) -> {
-            Object[] objs = (Object[]) msg.obj;
-            NetImageView imageView = (NetImageView) objs[0];
-            Bitmap bitmap = (Bitmap) objs[1];
-            imageView.setImageBitmap(bitmap);
-        });
+        imageLoader = ImageLoader.getInstance();
+        Context context = GeneralHandle.getInstance().getCurContext();
+
+
+        ImageLoaderConfiguration.Builder config = new ImageLoaderConfiguration.Builder(context);
+        config.threadPriority(Thread.NORM_PRIORITY - 2);
+        config.denyCacheImageMultipleSizesInMemory();
+        config.diskCacheFileNameGenerator(new Md5FileNameGenerator());
+        config.diskCacheSize(50 * 1024 * 1024); // 50 MiB
+        config.tasksProcessingOrder(QueueProcessingType.LIFO);
+        config.writeDebugLogs(); // Remove for release app
+
+        File cacheDir = StorageUtils.getCacheDirectory(context);
+//        ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(context)
+//                .memoryCacheExtraOptions(480, 800) // default = device screen dimensions
+//                .diskCacheExtraOptions(480, 800, null)
+//                .taskExecutor(Executors.newFixedThreadPool(IMAGE_NET_THREAD_POOL_SIZE))
+//                .taskExecutorForCachedImages(Executors.newFixedThreadPool(IMAGE_NET_THREAD_POOL_SIZE))
+//                .threadPoolSize(3) // default
+//                .threadPriority(Thread.NORM_PRIORITY - 2) // default
+//                .tasksProcessingOrder(QueueProcessingType.FIFO) // default
+//                .denyCacheImageMultipleSizesInMemory()
+//                .memoryCache(new LruMemoryCache(2 * 1024 * 1024))
+//                .memoryCacheSize(2 * 1024 * 1024)
+//                .memoryCacheSizePercentage(13) // default
+//                .diskCache(new UnlimitedDiskCache(cacheDir)) // default
+//                .diskCacheSize(50 * 1024 * 1024)
+//                .diskCacheFileCount(100)
+//                .diskCacheFileNameGenerator(new HashCodeFileNameGenerator()) // default
+//                .imageDownloader(new BaseImageDownloader(context)) // default
+//                .imageDecoder(new BaseImageDecoder(false)) // default
+//                .defaultDisplayImageOptions(DisplayImageOptions.createSimple()) // default
+//                .writeDebugLogs()
+//                .build();
+        imageLoader.init(config.build());
     }
 
     public NetImageView(Context context, AttributeSet attrs, int defStyleAttr) {
@@ -44,13 +79,19 @@ public class NetImageView extends androidx.appcompat.widget.AppCompatImageView {
      * @param path
      */
     public void setImageURL(String path) {
-        //在子线程中进行io获取图片流
-        HttpRequest.getInstance().asyncGetStream(path, (stream) -> {
-            Bitmap bitmap = BitmapFactory.decodeStream(stream);
-            Message msg = new Message();
-            msg.what = MessageKey.GET_NET_IMAGE;
-            msg.obj = new Object[]{this, bitmap};
-            MessageUtil.sendMessage(msg);
+
+        imageLoader.displayImage(path, this);
+    }
+
+    /**
+     * 设置资源id
+     *
+     * @param resourceId
+     */
+    public void setResourceId(int resourceId) {
+        Async.run(() -> {
+            Resource resource = ResourceController.getInstance().getResourceById(resourceId);
+            setImageURL(resource.getResourcePath());
         });
     }
 }

@@ -97,4 +97,8 @@ public class GeneralHandle extends Handler {
     public void setCurContext(Context context) {
         this.curContext = context;
     }
+
+    public Context getCurContext() {
+        return curContext;
+    }
 }

@@ -1,6 +1,5 @@
 package com.stu.otseaclient.activity;
 
-import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 import com.stu.otseaclient.general.GeneralHandle;
 
@@ -11,10 +10,10 @@ import com.stu.otseaclient.general.GeneralHandle;
  */
 public class MyBaseActivity extends AppCompatActivity {
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-        //初始化全局handle
+    protected void onResume() {
+        super.onResume();
         GeneralHandle.getInstance().setCurContext(this);
     }
+
+
 }

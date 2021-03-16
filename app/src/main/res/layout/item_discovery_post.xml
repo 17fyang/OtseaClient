@@ -16,7 +16,7 @@
             android:layout_marginHorizontal="20dp"
             android:textColor="#272525"/>
 
-    <ImageView
+    <com.stu.otseaclient.component.image.NetImageView
             android:layout_width="56dp"
             android:layout_height="43dp"
             android:id="@+id/post_author_image"

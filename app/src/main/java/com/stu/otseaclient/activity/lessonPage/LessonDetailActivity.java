@@ -7,7 +7,10 @@ import androidx.viewpager.widget.PagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 import com.stu.com.R;
 import com.stu.otseaclient.activity.MyBaseActivity;
-import com.stu.otseaclient.enumreation.ApiEnum;
+import com.stu.otseaclient.enumreation.MessageKey;
+import com.stu.otseaclient.general.GeneralHandle;
+import com.stu.otseaclient.pojo.LessonInfo;
+import com.stu.otseaclient.util.JsonUtil;
 import com.video.player.lib.manager.VideoPlayerManager;
 import com.video.player.lib.manager.VideoWindowManager;
 import com.video.player.lib.view.VideoPlayerTrackView;
@@ -23,13 +26,34 @@ public class LessonDetailActivity extends MyBaseActivity {
     public static final int TALK = 2;
     private VideoPlayerTrackView mVideoPlayer;
     private ViewPager viewPager;
+    private LessonInfo lessonInfo;
+
+    {
+        //注册reset 播放的视频的handle
+        GeneralHandle.getInstance().registerHandle(MessageKey.RESET_LESSON_VIDEO, (ctx, msg) -> {
+            String link = msg.getData().getString("link");
+            String title = msg.getData().getString("title");
+            mVideoPlayer.setDataSource(link, title);
+            mVideoPlayer.startPlayVideo();
+        });
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lesson_detail);
 
-        PagerAdapter pagerAdapter = new LessonFragmentPageAdapter(getSupportFragmentManager(), 0);
+        //读取Intent数据
+        if (getIntent().hasExtra("lessonInfo")) {
+            byte[] intentData = getIntent().getBundleExtra("lessonInfo").getByteArray("lessonInfo");
+            lessonInfo = JsonUtil.readBytes(intentData, LessonInfo.class);
+        }
+
+
+        //准备播放视频
+        mVideoPlayer = findViewById(R.id.lesson_video_track);
+
+        PagerAdapter pagerAdapter = new LessonFragmentPageAdapter(mVideoPlayer, lessonInfo, getSupportFragmentManager(), 0);
         viewPager = findViewById(R.id.lesson_detail_show_view);
         viewPager.setAdapter(pagerAdapter);
         viewPager.setCurrentItem(LESSON_DIR);
@@ -48,12 +72,6 @@ public class LessonDetailActivity extends MyBaseActivity {
 
         //默认的页面是课程介绍界面
         radioButtons[LESSON_DIR].setChecked(true);
-
-        //准备播放视频
-        mVideoPlayer = findViewById(R.id.lesson_video_track);
-        String path = ApiEnum.file("/video/test.mp4");
-        mVideoPlayer.startPlayVideo(path, "这是一个测试标题");
-
     }
 
     @Override

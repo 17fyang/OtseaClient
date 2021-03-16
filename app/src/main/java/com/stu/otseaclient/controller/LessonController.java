@@ -11,7 +11,8 @@ import com.stu.otseaclient.util.JsonUtil;
 import okhttp3.FormBody;
 import okhttp3.RequestBody;
 
-import java.util.LinkedList;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author: 乌鸦坐飞机亠
@@ -25,22 +26,48 @@ public class LessonController {
         return instance;
     }
 
-    public LinkedList<LessonInfo> listAction() {
-        LinkedList<LessonInfo> list = new LinkedList<>();
-        try {
-            RequestBody formBody = new FormBody.Builder().build();
-            Rest rest = HttpRequest.getInstance().syncPost(ApiEnum.LIST_LESSONS, formBody);
-            if (rest.getData().isEmpty()) return list;
+    /**
+     * 获取推荐课程列表
+     *
+     * @return
+     */
+    public List<LessonInfo> listAction() {
+        RequestBody formBody = new FormBody.Builder().build();
+        Rest rest = HttpRequest.getInstance().syncPost(ApiEnum.LIST_LESSONS, formBody);
 
-            ArrayNode arrayNode = (ArrayNode) rest.getData();
+        return arrayNodeToLessonInfoList((ArrayNode) rest.getData());
+    }
 
-            for (JsonNode node : arrayNode) {
-                ObjectNode objectNode = (ObjectNode) node;
-                list.add(JsonUtil.getObjectMapper().treeToValue(objectNode, LessonInfo.class));
-            }
-            return list;
-        } catch (Exception e) {
-            e.printStackTrace();
+    /**
+     * 获取上次看到的课程
+     *
+     * @return
+     */
+    public LessonInfo lastWatchLesson() {
+        RequestBody formBody = new FormBody.Builder().build();
+        Rest rest = HttpRequest.getInstance().syncPost(ApiEnum.LAST_LESSON, formBody);
+
+        return JsonUtil.treeToValue(rest.getData(), LessonInfo.class);
+    }
+
+    /**
+     * 搜素课程
+     *
+     * @param key
+     * @return
+     */
+    public List<LessonInfo> searchLessons(String key) {
+        RequestBody formBody = new FormBody.Builder().add("key", key).build();
+        Rest rest = HttpRequest.getInstance().syncPost(ApiEnum.SEARCH_LESSON, formBody);
+
+        return arrayNodeToLessonInfoList((ArrayNode) rest.getData());
+    }
+
+    private List<LessonInfo> arrayNodeToLessonInfoList(ArrayNode arrayNode) {
+        List<LessonInfo> list = new ArrayList<>();
+        for (JsonNode node : arrayNode) {
+            ObjectNode objectNode = (ObjectNode) node;
+            list.add(JsonUtil.treeToValue(objectNode, LessonInfo.class));
         }
         return list;
     }

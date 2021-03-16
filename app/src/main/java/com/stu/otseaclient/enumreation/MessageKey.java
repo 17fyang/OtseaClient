@@ -12,4 +12,7 @@ public class MessageKey {
     public static final int REFRESH_DISCOVERY_LIST = 0x03;
     public static final int REFRESH_MY_LESSON_LIST = 0x04;
     public static final int REFRESH_MAIN_LESSON_LIST = 0x05;
+    public static final int RESET_LESSON_VIDEO = 0x06;
+    public static final int REFRESH_LAST_LESSON = 0x07;
+    public static final int GET_SEARCH_LESSON_LIST = 0x08;
 }

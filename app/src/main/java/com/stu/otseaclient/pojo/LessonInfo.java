@@ -11,6 +11,15 @@ public class LessonInfo {
     private Resource titleImage;
     private UserInfo authorInfo;
 
+    @Override
+    public String toString() {
+        return "LessonInfo{" +
+                "lesson=" + lesson +
+                ", titleImage=" + titleImage +
+                ", authorInfo=" + authorInfo +
+                '}';
+    }
+
     public Lesson getLesson() {
         return lesson;
     }

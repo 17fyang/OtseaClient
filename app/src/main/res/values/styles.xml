@@ -26,4 +26,10 @@
         <item name="android:drawableTop">@drawable/frame_shape</item>
     </style>
 
+    <style name="common_list_view">
+        <item name="android:fastScrollEnabled">false</item>
+        <item name="android:scrollbars">none</item>
+        <item name="android:divider">@color/bgColor</item>
+    </style>
+
 </resources>

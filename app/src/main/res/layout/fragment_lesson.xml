@@ -71,9 +71,7 @@
     <ListView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:fastScrollEnabled="false"
-            android:scrollbars="none"
-            android:divider="@color/bgColor"
+            style="@style/common_list_view"
             android:dividerHeight="10dp"
             android:layout_marginTop="50dp"
             android:layout_below="@+id/lesson_ad_layout"

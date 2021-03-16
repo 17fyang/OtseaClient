@@ -1,14 +1,17 @@
 package com.stu.otseaclient.activity.mainPage;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ListView;
+import android.widget.*;
 import androidx.fragment.app.Fragment;
 import com.stu.com.R;
+import com.stu.otseaclient.activity.LessonSearchActivity;
 import com.stu.otseaclient.component.adapter.LessonListAdapter;
 import com.stu.otseaclient.component.image.GlideImageLoader;
+import com.stu.otseaclient.component.listener.SearchClickListener;
 import com.stu.otseaclient.controller.LessonController;
 import com.stu.otseaclient.enumreation.MessageKey;
 import com.stu.otseaclient.general.Async;
@@ -27,10 +30,17 @@ import java.util.List;
  * @Description:
  */
 public class MainFragment extends Fragment {
+    private static String[][] TYPE_CONFIG = new String[][]{
+            {"四六级", "计算机", "心理学", "考研", "经济"},
+            {"音乐", "公开", "热门", "数学", "课程"}};
+
+
     private ListView mainListView;
     private LessonListAdapter lessonListAdapter;
     private List<LessonInfo> lessonInfoList;
     private View view;
+    private RelativeLayout mainSearchLayout;
+    private SearchView searchView;
 
     {
         //注册主界面刷新listview的handler
@@ -54,6 +64,31 @@ public class MainFragment extends Fragment {
         lessonListAdapter = new LessonListAdapter(lessonInfoList, R.layout.item_lesson_list);
         mainListView = view.findViewById(R.id.main_lesson_list);
         mainListView.setAdapter(lessonListAdapter);
+
+        //设置点击监听
+        mainListView.setOnItemClickListener(lessonListAdapter);
+
+        //设置搜索框
+        searchView = view.findViewById(R.id.search_click);
+        searchView.setOnQueryTextListener(new SearchClickListener());
+
+        LinearLayout[] typeLine = new LinearLayout[]
+                {view.findViewById(R.id.main_type_layout1),
+                        view.findViewById(R.id.main_type_layout2)};
+
+        for (int i = 0; i < typeLine.length; i++) {
+            for (int j = 0; j < typeLine[i].getChildCount(); j++) {
+                ImageButton typeImage = (ImageButton) typeLine[i].getChildAt(j);
+                String searchKey = TYPE_CONFIG[i][j];
+                typeImage.setOnClickListener((v) -> {
+                    Intent intent = new Intent(GeneralHandle.getInstance().getCurContext(), LessonSearchActivity.class);
+                    intent.putExtra("search", searchKey);
+
+                    GeneralHandle.getInstance().getCurContext().startActivity(intent);
+                });
+            }
+        }
+
 
         return view;
     }

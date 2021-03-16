@@ -1,12 +1,15 @@
 package com.stu.otseaclient.activity.mainPage;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
-import androidx.viewpager.widget.PagerAdapter;
 import androidx.viewpager.widget.ViewPager;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.stu.com.R;
 import com.stu.otseaclient.activity.MyBaseActivity;
+import com.stu.otseaclient.pojo.UserInfo;
+import com.stu.otseaclient.util.JsonUtil;
 
 /**
  * @author: 乌鸦坐飞机亠
@@ -19,6 +22,7 @@ public class MainActivity extends MyBaseActivity implements RadioGroup.OnChecked
     public static final int LESSON_FRAGMENT = 2;
     public static final int MINE_FRAGMENT = 3;
 
+    private MyFragmentPageAdapter pagerAdapter;
     private ViewPager viewPager;
     private RadioButton[] radioButtons = new RadioButton[4];
 
@@ -26,7 +30,7 @@ public class MainActivity extends MyBaseActivity implements RadioGroup.OnChecked
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        PagerAdapter pagerAdapter = new MyFragmentPageAdapter(getSupportFragmentManager(), 0);
+        pagerAdapter = new MyFragmentPageAdapter(getSupportFragmentManager(), 0);
 
         //设置adapter
         viewPager = findViewById(R.id.main_view_pager);
@@ -46,6 +50,28 @@ public class MainActivity extends MyBaseActivity implements RadioGroup.OnChecked
 
         //默认的页面是首页
         radioButtons[MAIN_FRAGMENT].setChecked(true);
+        
+    }
+
+    @Override
+    public void onResume() {
+        //初始化登录状态
+        initLogin();
+    }
+
+    /**
+     * 初始化登录状态
+     */
+    private void initLogin() {
+        Intent intent = getIntent();
+        if (!intent.hasExtra("login")) return;
+
+        byte[] value = intent.getByteArrayExtra("login");
+        ObjectNode node = (ObjectNode) JsonUtil.readTree(value);
+        String token = node.get("token").asText();
+        UserInfo userInfo = JsonUtil.treeToValue(node.get("userInfoVo"), UserInfo.class);
+
+        getMineFragment().setLoginStatus(true, userInfo);
     }
 
     /**
@@ -58,16 +84,16 @@ public class MainActivity extends MyBaseActivity implements RadioGroup.OnChecked
     public void onCheckedChanged(RadioGroup group, int checkedId) {
         switch (checkedId) {
             case R.id.rb_main:
-                viewPager.setCurrentItem(MAIN_FRAGMENT);
+                viewPager.setCurrentItem(MAIN_FRAGMENT, true);
                 break;
             case R.id.rb_discovery:
-                viewPager.setCurrentItem(DISCOVERY_FRAGMENT);
+                viewPager.setCurrentItem(DISCOVERY_FRAGMENT, true);
                 break;
             case R.id.rb_lesson:
-                viewPager.setCurrentItem(LESSON_FRAGMENT);
+                viewPager.setCurrentItem(LESSON_FRAGMENT, true);
                 break;
             case R.id.rb_mine:
-                viewPager.setCurrentItem(MINE_FRAGMENT);
+                viewPager.setCurrentItem(MINE_FRAGMENT, true);
                 break;
         }
     }
@@ -79,7 +105,6 @@ public class MainActivity extends MyBaseActivity implements RadioGroup.OnChecked
 
     @Override
     public void onPageSelected(int position) {
-
     }
 
     @Override
@@ -88,4 +113,9 @@ public class MainActivity extends MyBaseActivity implements RadioGroup.OnChecked
         if (state == 2)
             radioButtons[viewPager.getCurrentItem()].setChecked(true);
     }
+
+    public MineFragment getMineFragment() {
+        return (MineFragment) pagerAdapter.getFragment(MINE_FRAGMENT);
+    }
+
 }

@@ -3,6 +3,8 @@ package com.stu.otseaclient.activity.lessonPage;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
+import com.stu.otseaclient.pojo.LessonInfo;
+import com.video.player.lib.view.VideoPlayerTrackView;
 
 /**
  * @author: 乌鸦坐飞机亠
@@ -12,11 +14,11 @@ import androidx.fragment.app.FragmentPagerAdapter;
 public class LessonFragmentPageAdapter extends FragmentPagerAdapter {
     public static final Fragment[] totalFragment = new Fragment[3];
 
-    public LessonFragmentPageAdapter(FragmentManager fm, int behavior) {
+    public LessonFragmentPageAdapter(VideoPlayerTrackView mVideoPlayer, LessonInfo lessonInfo, FragmentManager fm, int behavior) {
         super(fm, behavior);
-        totalFragment[LessonDetailActivity.LESSON_INTRO] = new LessonIntroFragment();
-        totalFragment[LessonDetailActivity.LESSON_DIR] = new LessonDirFragment();
-        totalFragment[LessonDetailActivity.TALK] = new LessonTalkFragment();
+        totalFragment[LessonDetailActivity.LESSON_INTRO] = new LessonIntroFragment(mVideoPlayer, lessonInfo);
+        totalFragment[LessonDetailActivity.LESSON_DIR] = new LessonDirFragment(mVideoPlayer, lessonInfo);
+        totalFragment[LessonDetailActivity.TALK] = new LessonTalkFragment(mVideoPlayer, lessonInfo);
     }
 
     @Override

@@ -5,9 +5,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
+import android.widget.SearchView;
 import androidx.fragment.app.Fragment;
 import com.stu.com.R;
 import com.stu.otseaclient.component.adapter.PostDiscoveryAdapter;
+import com.stu.otseaclient.component.listener.SearchClickListener;
 import com.stu.otseaclient.controller.PostController;
 import com.stu.otseaclient.enumreation.MessageKey;
 import com.stu.otseaclient.general.Async;
@@ -25,6 +27,7 @@ import java.util.LinkedList;
 public class DiscoveryFragment extends Fragment {
     private ListView discoveryListView;
     private PostDiscoveryAdapter postDiscoveryAdapter;
+    private SearchView searchView;
 
     private LinkedList<PostInfo> postList;
 
@@ -44,12 +47,13 @@ public class DiscoveryFragment extends Fragment {
             postList = PostController.getInstance().listPost();
             MessageUtil.sendEmptyMessage(MessageKey.REFRESH_DISCOVERY_LIST);
         });
-
-
         postDiscoveryAdapter = new PostDiscoveryAdapter(this.postList, R.layout.item_discovery_post);
         discoveryListView = view.findViewById(R.id.discover_list_view);
         discoveryListView.setAdapter(postDiscoveryAdapter);
 
+        //设置搜索框
+        searchView = view.findViewById(R.id.search_click);
+        searchView.setOnQueryTextListener(new SearchClickListener());
 
         return view;
     }

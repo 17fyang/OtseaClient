@@ -54,6 +54,9 @@ public class LessonFragment extends Fragment {
         lessonListView = view.findViewById(R.id.lesson_list_view);
         lessonListView.setAdapter(lessonListAdapter);
 
+        //设置点击监听
+        lessonListView.setOnItemClickListener(lessonListAdapter);
+
         //刷新界面的其他信息
         refresh();
 

@@ -1,8 +1,11 @@
 package com.stu.otseaclient.component.adapter;
 
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.TextView;
 import com.stu.com.R;
 import com.stu.otseaclient.component.image.NetImageView;
+import com.stu.otseaclient.component.listener.LessonClickListener;
 import com.stu.otseaclient.enumreation.ApiEnum;
 import com.stu.otseaclient.pojo.LessonInfo;
 import com.stu.otseaclient.util.DateUtil;
@@ -14,9 +17,12 @@ import java.util.List;
  * @date: 2020/12/22 14:36
  * @Description:
  */
-public class LessonListAdapter extends BaseListAdapter<LessonInfo> {
+public class LessonListAdapter extends BaseListAdapter<LessonInfo> implements AdapterView.OnItemClickListener {
+    private LessonClickListener lessonClickListener;
+
     public LessonListAdapter(List<LessonInfo> itemData, int layoutResource) {
         super(itemData, layoutResource);
+        lessonClickListener = new LessonClickListener();
     }
 
     @Override
@@ -30,5 +36,13 @@ public class LessonListAdapter extends BaseListAdapter<LessonInfo> {
         titleView.setText(item.getLesson().getTitle());
         authorView.setText(item.getAuthorInfo().getUserBaseInfo().getName());
         publishTimeView.setText(DateUtil.showTime(item.getLesson().getCreateTime()));
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        LessonInfo lessonInfo = getItem(position);
+        
+        lessonClickListener.setLessonInfo(lessonInfo);
+        lessonClickListener.onClick(view);
     }
 }

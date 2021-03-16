@@ -5,12 +5,14 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.EditText;
-import android.widget.Toast;
 import cn.hutool.core.util.StrUtil;
 import com.stu.com.R;
 import com.stu.otseaclient.InputException;
+import com.stu.otseaclient.activity.mainPage.MainActivity;
 import com.stu.otseaclient.enumreation.ApiEnum;
+import com.stu.otseaclient.enumreation.RestCode;
 import com.stu.otseaclient.general.HttpRequest;
+import com.stu.otseaclient.util.JsonUtil;
 import com.stu.otseaclient.util.UiUtil;
 import okhttp3.FormBody;
 import okhttp3.RequestBody;
@@ -40,23 +42,25 @@ public class LoginActivity extends MyBaseActivity {
      * @param view
      */
     public void login(View view) {
-        try {
-            String account = accountEditText.getText().toString();
-            if (StrUtil.isEmpty(account)) throw new InputException("用户名不得为空");
-            String password = accountEditText.getText().toString();
-            if (StrUtil.isEmpty(password)) throw new InputException("用户密码不得为空");
+        String account = accountEditText.getText().toString();
+        if (StrUtil.isEmpty(account)) throw new InputException("用户名不得为空");
+        String password = accountEditText.getText().toString();
+        if (StrUtil.isEmpty(password)) throw new InputException("用户密码不得为空");
 
-            RequestBody formBody = new FormBody.Builder()
-                    .add("mail", account)
-                    .add("password", password)
-                    .build();
+        RequestBody formBody = new FormBody.Builder()
+                .add("mail", account)
+                .add("password", password)
+                .build();
 
-            HttpRequest.getInstance().asyncPostRest(ApiEnum.USER_LOGIN, formBody, (rest) -> {
+        HttpRequest.getInstance().asyncPostRest(ApiEnum.USER_LOGIN, formBody, (rest) -> {
+            if (rest.getCode() != RestCode.SUCCEED) {
                 UiUtil.sendToast(rest.getMsg());
-            });
-        } catch (InputException e) {
-            Toast.makeText(LoginActivity.this, e.getMsg(), Toast.LENGTH_SHORT).show();
-        }
+            } else {
+                Intent intent = new Intent(this, MainActivity.class);
+                intent.putExtra("login", JsonUtil.writeAsByte(rest.getData()));
+                startActivity(intent);
+            }
+        });
     }
 
     /**

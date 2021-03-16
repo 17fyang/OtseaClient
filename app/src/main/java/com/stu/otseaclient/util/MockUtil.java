@@ -1,8 +1,8 @@
 package com.stu.otseaclient.util;
 
-import com.stu.otseaclient.pojo.LessonInfo;
+import com.stu.otseaclient.pojo.LessonDirNode;
 
-import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -11,10 +11,10 @@ import java.util.List;
  * @Description:
  */
 public class MockUtil {
-    public static List<LessonInfo> mockLessonInfo() {
-        List<LessonInfo> list = new ArrayList<>();
+    public static List<LessonDirNode> mockLessonList() {
+        List<LessonDirNode> sonList = new LinkedList<LessonDirNode>();
 
-        return list;
+        return sonList;
     }
 
 }

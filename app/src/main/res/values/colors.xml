@@ -8,4 +8,5 @@
     <color name="bgColor">#F0F0F0</color>
     <color name="textColorRank3">#FF1E1C1C</color>
     <color name="textColorRank2">#272525</color>
+    <color name="textColorRank_2">#81706D6D</color>
 </resources>

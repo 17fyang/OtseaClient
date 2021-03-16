@@ -3,4 +3,36 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
+    <TextView
+            android:text="课程介绍"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/textView"
+            android:layout_marginTop="10dp"
+            android:layout_below="@id/lesson_intro_author_layout"
+            android:layout_marginStart="9dp"
+            android:textSize="18sp"
+            android:layout_alignStart="@+id/lesson_intro_author_layout"/>
+
+    <RelativeLayout
+            android:layout_width="match_parent"
+            android:background="@drawable/frame_shape"
+            android:layout_height="100dp"
+            android:layout_marginTop="0dp"
+            android:layout_alignParentTop="true"
+            android:id="@+id/lesson_intro_author_layout"
+            android:layout_marginHorizontal="20dp">
+
+        <include layout="@layout/item_person_intro"/>
+    </RelativeLayout>
+
+    <TextView
+            android:text="\n\n\n"
+            android:background="@drawable/frame_shape"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/lesson_intro_content"
+            android:layout_marginTop="10dp"
+            android:layout_below="@+id/textView"
+            android:layout_marginHorizontal="20dp"/>
 </RelativeLayout>
