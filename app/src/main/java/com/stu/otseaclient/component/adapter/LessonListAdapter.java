@@ -6,9 +6,9 @@ import android.widget.TextView;
 import com.stu.com.R;
 import com.stu.otseaclient.component.image.NetImageView;
 import com.stu.otseaclient.component.listener.LessonClickListener;
-import com.stu.otseaclient.enumreation.ApiEnum;
 import com.stu.otseaclient.pojo.LessonInfo;
 import com.stu.otseaclient.util.DateUtil;
+import com.stu.otseaclient.util.UrlUtil;
 
 import java.util.List;
 
@@ -32,16 +32,18 @@ public class LessonListAdapter extends BaseListAdapter<LessonInfo> implements Ad
         TextView authorView = holder.getItem().findViewById(R.id.lesson_info_author);
         TextView publishTimeView = holder.getItem().findViewById(R.id.lesson_info_time);
 
-        lessonImageView.setImageURL(ApiEnum.file(item.getTitleImage().getResourcePath()));
+        String resourcePath = UrlUtil.absFile(item.getTitleImage().getResourcePath());
+        lessonImageView.setImageURL(resourcePath);
+
         titleView.setText(item.getLesson().getTitle());
-        authorView.setText(item.getAuthorInfo().getUserBaseInfo().getName());
+        authorView.setText(item.getAuthorInfo().getName());
         publishTimeView.setText(DateUtil.showTime(item.getLesson().getCreateTime()));
     }
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         LessonInfo lessonInfo = getItem(position);
-        
+
         lessonClickListener.setLessonInfo(lessonInfo);
         lessonClickListener.onClick(view);
     }

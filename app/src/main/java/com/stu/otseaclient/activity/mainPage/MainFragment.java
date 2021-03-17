@@ -31,8 +31,8 @@ import java.util.List;
  */
 public class MainFragment extends Fragment {
     private static String[][] TYPE_CONFIG = new String[][]{
-            {"四六级", "计算机", "心理学", "考研", "经济"},
-            {"音乐", "公开", "热门", "数学", "课程"}};
+            {"Java", "Python", "Spring", "Go", "前端"},
+            {"Html", "后端", "算法", "测试", "课程"}};
 
 
     private ListView mainListView;
@@ -88,7 +88,6 @@ public class MainFragment extends Fragment {
                 });
             }
         }
-
 
         return view;
     }

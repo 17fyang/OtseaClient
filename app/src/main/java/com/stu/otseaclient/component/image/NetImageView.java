@@ -11,6 +11,7 @@ import com.stu.otseaclient.controller.ResourceController;
 import com.stu.otseaclient.general.Async;
 import com.stu.otseaclient.general.GeneralHandle;
 import com.stu.otseaclient.pojo.Resource;
+import com.stu.otseaclient.util.UrlUtil;
 
 import java.io.File;
 
@@ -91,7 +92,7 @@ public class NetImageView extends androidx.appcompat.widget.AppCompatImageView {
     public void setResourceId(int resourceId) {
         Async.run(() -> {
             Resource resource = ResourceController.getInstance().getResourceById(resourceId);
-            setImageURL(resource.getResourcePath());
+            setImageURL(UrlUtil.absFile(resource.getResourcePath()));
         });
     }
 }

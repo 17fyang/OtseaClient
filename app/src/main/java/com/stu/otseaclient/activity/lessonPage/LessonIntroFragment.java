@@ -7,8 +7,8 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import com.stu.com.R;
 import com.stu.otseaclient.component.image.NetImageView;
-import com.stu.otseaclient.enumreation.ApiEnum;
 import com.stu.otseaclient.pojo.LessonInfo;
+import com.stu.otseaclient.util.UrlUtil;
 import com.video.player.lib.view.VideoPlayerTrackView;
 
 /**
@@ -27,17 +27,17 @@ public class LessonIntroFragment extends LessonFragment {
         View view = inflater.inflate(R.layout.fragment_lesson_intro, container, false);
 
         NetImageView authorImageView = view.findViewById(R.id.lesson_intro_author_image);
-        String headUrl = ApiEnum.head(lessonInfo.getAuthorInfo().getUserBaseInfo().getHeadImage());
+        String headUrl = UrlUtil.absFile(lessonInfo.getAuthorInfo().getHeadImage());
         authorImageView.setImageURL(headUrl);
 
         TextView nameTextView = view.findViewById(R.id.lesson_intro_author_name);
-        nameTextView.setText(lessonInfo.getAuthorInfo().getUserBaseInfo().getName());
+        nameTextView.setText(lessonInfo.getAuthorInfo().getName());
 
         TextView introView = view.findViewById(R.id.lesson_intro_author_intro);
-        introView.setText(lessonInfo.getAuthorInfo().getUserBaseInfo().getSignature());
+        introView.setText(lessonInfo.getAuthorInfo().getIntro());
 
         TextView contentView = view.findViewById(R.id.lesson_intro_content);
-        contentView.setText(lessonInfo.getLesson().getIntroduce());
+        contentView.setText("\t\t\t\t" + lessonInfo.getLesson().getIntroduce());
 
         return view;
     }

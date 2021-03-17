@@ -7,15 +7,18 @@ package com.stu.otseaclient.pojo;
  */
 public class UserInfo {
     private String userId;
-    private UserBaseInfo userBaseInfo;
+    private String intro;
+    private String headImage;
+    private String name;
 
+    public UserInfo() {
+    }
 
-    @Override
-    public String toString() {
-        return "UserInfo{" +
-                "userId='" + userId + '\'' +
-                ", userBaseInfo=" + userBaseInfo +
-                '}';
+    public UserInfo(String userId, String intro, String headImage, String name) {
+        this.userId = userId;
+        this.intro = intro;
+        this.headImage = headImage;
+        this.name = name;
     }
 
     public String getUserId() {
@@ -26,11 +29,27 @@ public class UserInfo {
         this.userId = userId;
     }
 
-    public UserBaseInfo getUserBaseInfo() {
-        return userBaseInfo;
+    public String getIntro() {
+        return intro;
     }
 
-    public void setUserBaseInfo(UserBaseInfo userBaseInfo) {
-        this.userBaseInfo = userBaseInfo;
+    public void setIntro(String intro) {
+        this.intro = intro;
+    }
+
+    public String getHeadImage() {
+        return headImage;
+    }
+
+    public void setHeadImage(String headImage) {
+        this.headImage = headImage;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 }

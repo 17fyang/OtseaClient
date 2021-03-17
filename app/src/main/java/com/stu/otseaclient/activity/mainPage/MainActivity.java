@@ -50,11 +50,12 @@ public class MainActivity extends MyBaseActivity implements RadioGroup.OnChecked
 
         //默认的页面是首页
         radioButtons[MAIN_FRAGMENT].setChecked(true);
-        
+
     }
 
     @Override
     public void onResume() {
+        super.onResume();
         //初始化登录状态
         initLogin();
     }

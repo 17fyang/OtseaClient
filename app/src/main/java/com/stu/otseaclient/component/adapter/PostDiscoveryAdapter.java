@@ -3,9 +3,9 @@ package com.stu.otseaclient.component.adapter;
 import android.widget.TextView;
 import com.stu.com.R;
 import com.stu.otseaclient.component.image.NetImageView;
-import com.stu.otseaclient.enumreation.ApiEnum;
 import com.stu.otseaclient.pojo.PostInfo;
 import com.stu.otseaclient.util.DateUtil;
+import com.stu.otseaclient.util.UrlUtil;
 
 import java.util.List;
 
@@ -28,9 +28,9 @@ public class PostDiscoveryAdapter extends BaseListAdapter<PostInfo> {
         TextView postTimeView = holder.getItem().findViewById(R.id.post_info_time);
         NetImageView headImage = holder.getItem().findViewById(R.id.post_author_image);
 
-        String headUrl = ApiEnum.head(item.getAuthorInfo().getUserBaseInfo().getHeadImage());
+        String headUrl = UrlUtil.absFile(item.getAuthorInfo().getHeadImage());
         headImage.setImageURL(headUrl);
-        authorName.setText(item.getAuthorInfo().getUserBaseInfo().getName());
+        authorName.setText(item.getAuthorInfo().getName());
         contentTextView.setText(item.getPost().getContent());
         postTimeView.setText(DateUtil.showTime(item.getPost().getCreateTime()));
     }

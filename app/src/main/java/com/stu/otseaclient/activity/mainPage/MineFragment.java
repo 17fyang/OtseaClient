@@ -19,6 +19,7 @@ import com.stu.otseaclient.pojo.LessonInfo;
 import com.stu.otseaclient.pojo.UserInfo;
 import com.stu.otseaclient.util.DateUtil;
 import com.stu.otseaclient.util.MessageUtil;
+import com.stu.otseaclient.util.UrlUtil;
 
 /**
  * @author: 乌鸦坐飞机亠
@@ -67,16 +68,17 @@ public class MineFragment extends Fragment {
 
     public void setLoginStatus(boolean status, UserInfo userInfo) {
         if (status) {
-            
+
         } else {
 
         }
     }
 
     public void setUpLastLessonInfo(LessonInfo lessonInfo) {
-        lastLessonImage.setImageURL(lessonInfo.getTitleImage().getResourcePath());
+        String absPath = UrlUtil.absFile(lessonInfo.getTitleImage().getResourcePath());
+        lastLessonImage.setImageURL(absPath);
         lastLessonTitle.setText(lessonInfo.getLesson().getTitle());
-        lastLessonAuthor.setText(lessonInfo.getAuthorInfo().getUserBaseInfo().getName());
+        lastLessonAuthor.setText(lessonInfo.getAuthorInfo().getName());
         lastLessonTime.setText(DateUtil.showTime(lessonInfo.getLesson().getCreateTime()));
     }
 
