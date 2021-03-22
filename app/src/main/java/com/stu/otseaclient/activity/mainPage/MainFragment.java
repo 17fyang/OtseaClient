@@ -1,14 +1,15 @@
 package com.stu.otseaclient.activity.mainPage;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.*;
-import androidx.fragment.app.Fragment;
 import com.stu.com.R;
 import com.stu.otseaclient.activity.LessonSearchActivity;
+import com.stu.otseaclient.component.BaseFragment;
 import com.stu.otseaclient.component.adapter.LessonListAdapter;
 import com.stu.otseaclient.component.image.GlideImageLoader;
 import com.stu.otseaclient.component.listener.SearchClickListener;
@@ -29,7 +30,7 @@ import java.util.List;
  * @date: 2020/12/16 21:27
  * @Description:
  */
-public class MainFragment extends Fragment {
+public class MainFragment extends BaseFragment {
     private static String[][] TYPE_CONFIG = new String[][]{
             {"Java", "Python", "Spring", "Go", "前端"},
             {"Html", "后端", "算法", "测试", "课程"}};
@@ -48,6 +49,10 @@ public class MainFragment extends Fragment {
             lessonListAdapter.setItemData(this.lessonInfoList);
             lessonListAdapter.notifyDataSetChanged();
         });
+    }
+
+    public MainFragment(Activity activity) {
+        super(activity);
     }
 
     @Override

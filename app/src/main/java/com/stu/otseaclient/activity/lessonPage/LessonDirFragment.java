@@ -50,7 +50,7 @@ public class LessonDirFragment extends LessonFragment {
 
             JsonNode linkNode = o.get("link");
             if (linkNode != null)
-                dirNode.setLink(linkNode.asInt());
+                dirNode.setLink(linkNode.asText());
 
             JsonNode sonNode = o.get("son");
             if (sonNode != null)
@@ -68,7 +68,7 @@ public class LessonDirFragment extends LessonFragment {
         listAdapter = new LessonDirListAdapter(this.mVideoPlayer, lessonDirNode, R.layout.item_lesson_dir_spinner);
         listView = view.findViewById(R.id.lesson_dir_list_view);
         listView.setAdapter(listAdapter);
-        
+
 
         return view;
     }

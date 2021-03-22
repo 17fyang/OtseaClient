@@ -44,7 +44,7 @@ public class LoginActivity extends MyBaseActivity {
     public void login(View view) {
         String account = accountEditText.getText().toString();
         if (StrUtil.isEmpty(account)) throw new InputException("用户名不得为空");
-        String password = accountEditText.getText().toString();
+        String password = passwordEditText.getText().toString();
         if (StrUtil.isEmpty(password)) throw new InputException("用户密码不得为空");
 
         RequestBody formBody = new FormBody.Builder()

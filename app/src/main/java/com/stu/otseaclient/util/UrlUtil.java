@@ -15,6 +15,6 @@ public class UrlUtil {
     }
 
     private static boolean validate(String url) {
-        return url.startsWith("http");
+        return url.startsWith("http") || url.startsWith("blob");
     }
 }

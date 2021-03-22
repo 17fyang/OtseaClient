@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
                 android:orientation="vertical"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
@@ -25,26 +26,15 @@
                 android:textColor="#121212"/>
     </RelativeLayout>
 
-    <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="120dp"
-            android:layout_marginTop="25dp"
+    <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="160dp"
+            android:layout_marginTop="20dp"
             android:layout_below="@+id/lesson_head_layout"
-            android:background="@drawable/frame_shape"
             android:id="@+id/lesson_ad_layout"
-            android:layout_alignParentEnd="true"
-            android:layout_marginEnd="20dp"
-            android:layout_alignParentStart="true"
-            android:layout_marginStart="20dp">
-
-        <TextView
-                android:text="这是一个广告位"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/textView9"
-                android:layout_centerInParent="true"
-                android:textSize="36sp"/>
-    </RelativeLayout>
+            app:srcCompat="@drawable/adver"
+            android:layout_marginHorizontal="20dp">
+    </ImageView>
 
     <TextView
             android:text="我的课程 0"

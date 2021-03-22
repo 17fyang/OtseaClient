@@ -12,6 +12,7 @@ import okhttp3.FormBody;
 import okhttp3.RequestBody;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -51,6 +52,42 @@ public class LessonController {
     }
 
     /**
+     * 获取我的收藏
+     *
+     * @return
+     */
+    public List<LessonInfo> listMyCollect() {
+        RequestBody formBody = new FormBody.Builder().build();
+        Rest rest = HttpRequest.getInstance().syncPost(ApiEnum.MY_COLLECT_LESSON, formBody);
+
+        return arrayNodeToLessonInfoList((ArrayNode) rest.getData());
+    }
+
+    /**
+     * 获取我的课程
+     *
+     * @return
+     */
+    public List<LessonInfo> listMyLessons() {
+        RequestBody formBody = new FormBody.Builder().build();
+        Rest rest = HttpRequest.getInstance().syncPost(ApiEnum.MY_LESSONS, formBody);
+
+        return arrayNodeToLessonInfoList((ArrayNode) rest.getData());
+    }
+
+    /**
+     * 获取我的浏览记录
+     *
+     * @return
+     */
+    public List<LessonInfo> listMyRecord() {
+        RequestBody formBody = new FormBody.Builder().build();
+        Rest rest = HttpRequest.getInstance().syncPost(ApiEnum.MY_RECORDS, formBody);
+
+        return arrayNodeToLessonInfoList((ArrayNode) rest.getData());
+    }
+
+    /**
      * 搜素课程
      *
      * @param key
@@ -64,6 +101,7 @@ public class LessonController {
     }
 
     private List<LessonInfo> arrayNodeToLessonInfoList(ArrayNode arrayNode) {
+        if (arrayNode == null) return new LinkedList<>();
         List<LessonInfo> list = new ArrayList<>();
         for (JsonNode node : arrayNode) {
             ObjectNode objectNode = (ObjectNode) node;

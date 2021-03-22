@@ -97,13 +97,8 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:layout_width="wrap_content"
-                android:background="#00F4EBEB">
-
-            <Button
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:id="@+id/button"
-                    android:background="#00FFFFFF"/>
+                android:background="#00F4EBEB"
+                android:id="@+id/mine_my_lesson_layout">
 
             <ImageView
                     android:layout_width="50dp"
@@ -112,15 +107,16 @@
                     android:layout_alignParentTop="true"
                     android:layout_centerHorizontal="true"
                     android:id="@+id/mine_func_image1"
-                    app:srcCompat="@drawable/ic_launcher_foreground"/>
+                    app:srcCompat="@drawable/ic_launcher_foreground"
+                    android:clickable="false"/>
 
             <TextView
-                    android:text="TextView"
+                    android:text="我的发布"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="6dp"
+                    android:layout_marginTop="8dp"
                     android:layout_below="@id/mine_func_image1"
-                    android:textSize="18sp"
+                    android:textSize="14sp"
                     android:layout_centerHorizontal="true"/>
         </RelativeLayout>
 
@@ -128,14 +124,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:background="#00FFFFFF">
-
-            <Button
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:id="@+id/button2"
-                    android:background="#00FFFFFF"
-                    />
+                android:background="#00FFFFFF"
+                android:id="@+id/mine_record_layout">
 
             <ImageView
                     android:layout_width="50dp"
@@ -148,12 +138,12 @@
                     />
 
             <TextView
-                    android:text="TextView"
+                    android:text="浏览记录"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="6dp"
+                    android:layout_marginTop="8dp"
                     android:layout_below="@id/mine_func_image2"
-                    android:textSize="18sp"
+                    android:textSize="14sp"
                     android:layout_centerHorizontal="true"/>
         </RelativeLayout>
 
@@ -161,14 +151,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:background="#00FFFFFF">
-
-            <Button
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:id="@+id/button3"
-                    android:backgroundTint="#00FFFFFF"
-                    android:background="#00FFFFFF"/>
+                android:background="#00FFFFFF"
+                android:id="@+id/mine_collect_layout">
 
             <ImageView
                     android:layout_width="50dp"
@@ -180,12 +164,12 @@
                     app:srcCompat="@drawable/tag_menu_setting"/>
 
             <TextView
-                    android:text="TextView"
+                    android:text="我的收藏"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="6dp"
+                    android:layout_marginTop="8dp"
                     android:layout_below="@+id/mine_func_image3"
-                    android:textSize="18sp"
+                    android:textSize="14sp"
                     android:layout_centerHorizontal="true"/>
         </RelativeLayout>
 
@@ -193,13 +177,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:background="#00FFFFFF">
+                android:background="#00FFFFFF"
+                android:id="@+id/mine_letter_layout">
 
-            <Button
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:id="@+id/button4"
-                    android:background="#00FFFFFF"/>
 
             <ImageView
                     android:layout_width="50dp"
@@ -211,12 +191,12 @@
                     app:srcCompat="@drawable/tag_menu_message"/>
 
             <TextView
-                    android:text="TextView"
+                    android:text="我的私信"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="6dp"
+                    android:layout_marginTop="8dp"
                     android:layout_below="@id/mine_func_image4"
-                    android:textSize="18sp"
+                    android:textSize="14sp"
                     android:layout_centerHorizontal="true"/>
         </RelativeLayout>
 

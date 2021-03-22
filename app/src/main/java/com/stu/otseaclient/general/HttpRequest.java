@@ -22,6 +22,7 @@ public class HttpRequest {
     //连接超时时间（秒）
     public static final int CONNECT_TIMEOUT = 5;
     private final static HttpRequest instance = new HttpRequest();
+    private String token = null;
 
     public static HttpRequest getInstance() {
         return instance;
@@ -37,8 +38,8 @@ public class HttpRequest {
         Async.run(() -> {
             InputStream inputStream = null;
             try {
-                Request request = new Request.Builder().url(url).get().build();
-                OkHttpClient client = new OkHttpClient.Builder().readTimeout(CONNECT_TIMEOUT, TimeUnit.SECONDS).build();
+                Request request = buildRequest().url(url).get().build();
+                OkHttpClient client = buildClient();
                 Response response = client.newCall(request).execute();
                 if (response.isSuccessful()) {
                     inputStream = response.body().byteStream();
@@ -67,8 +68,8 @@ public class HttpRequest {
      * @param restResponse
      */
     public void asyncPostRest(String url, RequestBody body, IRestResponse restResponse) {
-        OkHttpClient client = new OkHttpClient.Builder().readTimeout(CONNECT_TIMEOUT, TimeUnit.SECONDS).build();
-        Request request = new Request.Builder().url(url).post(body).build();
+        OkHttpClient client = buildClient();
+        Request request = buildRequest().url(url).post(body).build();
         Call call = client.newCall(request);
         call.enqueue(new Callback() {
             @Override
@@ -101,8 +102,8 @@ public class HttpRequest {
      * @return
      */
     public Rest syncPost(String url, RequestBody body) {
-        OkHttpClient client = new OkHttpClient.Builder().readTimeout(CONNECT_TIMEOUT, TimeUnit.SECONDS).build();
-        Request request = new Request.Builder().url(url).post(body).build();
+        OkHttpClient client = buildClient();
+        Request request = buildRequest().url(url).post(body).build();
 
         try {
             Response response = client.newCall(request).execute();
@@ -116,6 +117,26 @@ public class HttpRequest {
             e.printStackTrace();
             return null;
         }
+    }
+
+    /**
+     * 设置请求token
+     *
+     * @param token
+     */
+    public void setToken(String token) {
+        this.token = token;
+    }
+
+    private OkHttpClient buildClient() {
+        return new OkHttpClient.Builder()
+                .readTimeout(CONNECT_TIMEOUT, TimeUnit.SECONDS).build();
+    }
+
+    private Request.Builder buildRequest() {
+        Request.Builder builder = new Request.Builder();
+        if (token != null) builder.addHeader("token", token);
+        return builder;
     }
 
     private Rest packFromJson(ObjectNode json) {

@@ -13,6 +13,9 @@ public class ApiEnum {
     public static final String USER_REGISTER = user("/register");
     public static final String VERIFICATION = user("/verification");
     public static final String LIST_DISCOVERY = content("/post/listAction");
+    public static final String MY_COLLECT_LESSON = content("/lesson/myCollectLessons");
+    public static final String MY_LESSONS = content("/lesson/myLessons");
+    public static final String MY_RECORDS = content("/lesson/myRecords");
     public static final String LIST_LESSONS = content("/lesson/listAction");
     public static final String RESOURCE_DETAIL = content("/lesson/resource");
     public static final String LAST_LESSON = content("/lesson/lastWatchLesson");

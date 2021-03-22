@@ -22,6 +22,11 @@ import java.util.List;
  * @Description:
  */
 public class LessonSearchActivity extends MyBaseActivity {
+    public static final int FLAG_COLLECT = 0b1;
+    public static final int FLAG_MY = 0b10;
+    public static final int FLAG_RECORD = 0b100;
+    public static final int FLAG_LETTER = 0b1000;
+
     private ListView lessonSearchListView;
     private LessonListAdapter lessonListAdapter;
     private volatile List<LessonInfo> lessonInfoList;
@@ -56,14 +61,31 @@ public class LessonSearchActivity extends MyBaseActivity {
     @Override
     protected void onResume() {
         super.onResume();
-
+        int flag = getIntent().getFlags();
         String searchContent = getIntent().getStringExtra("search");
-        if (StringUtil.isNull(searchContent)) return;
-
-        Async.run(() -> {
-            this.lessonInfoList = LessonController.getInstance().searchLessons(searchContent);
-            MessageUtil.sendEmptyMessage(MessageKey.GET_SEARCH_LESSON_LIST);
-        });
+        if (!StringUtil.isNull(searchContent)) {
+            Async.run(() -> {
+                this.lessonInfoList = LessonController.getInstance().searchLessons(searchContent);
+                MessageUtil.sendEmptyMessage(MessageKey.GET_SEARCH_LESSON_LIST);
+            });
+        } else if ((flag & FLAG_COLLECT) != 0) {
+            Async.run(() -> {
+                this.lessonInfoList = LessonController.getInstance().listMyCollect();
+                MessageUtil.sendEmptyMessage(MessageKey.GET_SEARCH_LESSON_LIST);
+            });
+        } else if ((flag & FLAG_LETTER) != 0) {
+            //todo 待实现
+        } else if ((flag & FLAG_MY) != 0) {
+            Async.run(() -> {
+                this.lessonInfoList = LessonController.getInstance().listMyLessons();
+                MessageUtil.sendEmptyMessage(MessageKey.GET_SEARCH_LESSON_LIST);
+            });
+        } else if ((flag & FLAG_RECORD) != 0) {
+            Async.run(() -> {
+                this.lessonInfoList = LessonController.getInstance().listMyRecord();
+                MessageUtil.sendEmptyMessage(MessageKey.GET_SEARCH_LESSON_LIST);
+            });
+        }
 
     }
 }

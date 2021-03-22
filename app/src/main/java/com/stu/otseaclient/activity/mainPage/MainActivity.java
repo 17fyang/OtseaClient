@@ -1,15 +1,11 @@
 package com.stu.otseaclient.activity.mainPage;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import androidx.viewpager.widget.ViewPager;
-import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.stu.com.R;
 import com.stu.otseaclient.activity.MyBaseActivity;
-import com.stu.otseaclient.pojo.UserInfo;
-import com.stu.otseaclient.util.JsonUtil;
 
 /**
  * @author: 乌鸦坐飞机亠
@@ -22,6 +18,7 @@ public class MainActivity extends MyBaseActivity implements RadioGroup.OnChecked
     public static final int LESSON_FRAGMENT = 2;
     public static final int MINE_FRAGMENT = 3;
 
+    private boolean isLogin = false;
     private MyFragmentPageAdapter pagerAdapter;
     private ViewPager viewPager;
     private RadioButton[] radioButtons = new RadioButton[4];
@@ -30,7 +27,7 @@ public class MainActivity extends MyBaseActivity implements RadioGroup.OnChecked
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        pagerAdapter = new MyFragmentPageAdapter(getSupportFragmentManager(), 0);
+        pagerAdapter = new MyFragmentPageAdapter(this, getSupportFragmentManager(), 0);
 
         //设置adapter
         viewPager = findViewById(R.id.main_view_pager);
@@ -53,27 +50,6 @@ public class MainActivity extends MyBaseActivity implements RadioGroup.OnChecked
 
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-        //初始化登录状态
-        initLogin();
-    }
-
-    /**
-     * 初始化登录状态
-     */
-    private void initLogin() {
-        Intent intent = getIntent();
-        if (!intent.hasExtra("login")) return;
-
-        byte[] value = intent.getByteArrayExtra("login");
-        ObjectNode node = (ObjectNode) JsonUtil.readTree(value);
-        String token = node.get("token").asText();
-        UserInfo userInfo = JsonUtil.treeToValue(node.get("userInfoVo"), UserInfo.class);
-
-        getMineFragment().setLoginStatus(true, userInfo);
-    }
 
     /**
      * radioGroup切换监听
@@ -119,4 +95,11 @@ public class MainActivity extends MyBaseActivity implements RadioGroup.OnChecked
         return (MineFragment) pagerAdapter.getFragment(MINE_FRAGMENT);
     }
 
+    public boolean isLogin() {
+        return isLogin;
+    }
+
+    public void setLogin(boolean login) {
+        isLogin = login;
+    }
 }

@@ -9,14 +9,14 @@ import java.util.List;
  */
 public class LessonDirNode {
     private String name;
-    private int link;
+    private String link;
     private List<LessonDirNode> son;
 
     public LessonDirNode() {
-    
+
     }
 
-    public LessonDirNode(String nodeName, int link) {
+    public LessonDirNode(String nodeName, String link) {
         this.name = nodeName;
         this.link = link;
     }
@@ -34,11 +34,11 @@ public class LessonDirNode {
         this.name = name;
     }
 
-    public int getLink() {
+    public String getLink() {
         return link;
     }
 
-    public void setLink(int link) {
+    public void setLink(String link) {
         this.link = link;
     }
 

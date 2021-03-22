@@ -4,13 +4,11 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 import com.stu.com.R;
-import com.stu.otseaclient.controller.ResourceController;
-import com.stu.otseaclient.enumreation.ApiEnum;
 import com.stu.otseaclient.enumreation.MessageKey;
 import com.stu.otseaclient.general.Async;
 import com.stu.otseaclient.pojo.LessonDirNode;
-import com.stu.otseaclient.pojo.Resource;
 import com.stu.otseaclient.util.MessageUtil;
+import com.stu.otseaclient.util.UrlUtil;
 import com.video.player.lib.view.VideoPlayerTrackView;
 import org.angmarch.views.NiceSpinner;
 import org.angmarch.views.OnSpinnerItemSelectedListener;
@@ -45,9 +43,8 @@ public class LessonDirListAdapter extends BaseListAdapter<LessonDirNode> impleme
     public void onItemSelected(NiceSpinner parent, View view, int position, long id) {
         LessonDirNode node = (LessonDirNode) parent.getSelectedItem();
         Async.run(() -> {
-            Resource resource = ResourceController.getInstance().getResourceById(node.getLink());
             Bundle bundle = new Bundle();
-            bundle.putString("link", ApiEnum.file(resource.getResourcePath()));
+            bundle.putString("link", UrlUtil.absFile(node.getLink()));
             bundle.putString("title", node.getName());
             MessageUtil.sendBundle(MessageKey.RESET_LESSON_VIDEO, bundle);
         });

@@ -7,11 +7,7 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
 import com.nostra13.universalimageloader.utils.StorageUtils;
-import com.stu.otseaclient.controller.ResourceController;
-import com.stu.otseaclient.general.Async;
 import com.stu.otseaclient.general.GeneralHandle;
-import com.stu.otseaclient.pojo.Resource;
-import com.stu.otseaclient.util.UrlUtil;
 
 import java.io.File;
 
@@ -82,17 +78,5 @@ public class NetImageView extends androidx.appcompat.widget.AppCompatImageView {
     public void setImageURL(String path) {
 
         imageLoader.displayImage(path, this);
-    }
-
-    /**
-     * 设置资源id
-     *
-     * @param resourceId
-     */
-    public void setResourceId(int resourceId) {
-        Async.run(() -> {
-            Resource resource = ResourceController.getInstance().getResourceById(resourceId);
-            setImageURL(UrlUtil.absFile(resource.getResourcePath()));
-        });
     }
 }
